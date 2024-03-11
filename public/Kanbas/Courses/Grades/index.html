@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kanbas Courses Grades</title>
+  </head>
+  <body>
+    <form>
+      <select id="gradebook">
+        <option selected value="Gradebook">Gradebook</option>
+      </select>
+      <button type="button">Import</button>
+      <select id="export">
+        <option selected value="Export">Export</option>
+      </select>
+      <button type="button">Configure</button>
+
+      <h3>Student Names</h3>
+      <input id="tf-search-students" placeholder="Search Students" /><br />
+
+      <h3>Assignment Names</h3>
+      <input
+        id="tf-search-assignments"
+        placeholder="Search Assignments"
+      /><br />
+    </form>
+    <br />
+    <form>
+      <button type="button">Apply Filters</button>
+    </form>
+    <br /><br />
+
+    <table border="1" width="100%">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>
+            A1 SETUP <br />
+            Out of 100
+          </th>
+          <th>
+            A2 HTML <br />
+            Out of 100
+          </th>
+          <th>
+            A3 CSS <br />
+            Out of 100
+          </th>
+          <th>
+            A4 BOOTSTRAP <br />
+            Out of 100
+          </th>
+          <th>
+            A5 JAVASCRIPT <br />
+            Out of 100
+          </th>
+          <th>
+            A6 REACT <br />
+            Out of 100
+          </th>
+          <th>
+            A7 REDUX <br />
+            Out of 100
+          </th>
+          <th>
+            A8 NODE <br />
+            Out of 100
+          </th>
+          <th>
+            A9 MONGO <br />
+            Out of 100
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr align="center">
+          <td>Alice Wonderland</td>
+          <td>98</td>
+          <td>89</td>
+          <td>87</td>
+          <td>90</td>
+          <td>89</td>
+          <td>94</td>
+          <td>88</td>
+          <td>87</td>
+          <td>100</td>
+        </tr>
+        <tr align="center">
+          <td>Princess Leia</td>
+          <td>98</td>
+          <td>80</td>
+          <td>87</td>
+          <td>86</td>
+          <td>100</td>
+          <td>94</td>
+          <td>
+            <input type="text" id="tf-Leia-A7" value="85" size="3" />
+          </td>
+          <td>84</td>
+          <td>92</td>
+        </tr>
+        <tr align="center">
+          <td>Luke Skywalker</td>
+          <td>
+            <input type="text" id="tf-Skywalker-A1" value="99" size="3" />
+          </td>
+          <td>88</td>
+          <td>97</td>
+          <td>82</td>
+          <td>96</td>
+          <td>93</td>
+          <td>95</td>
+          <td>100</td>
+          <td>93</td>
+        </tr>
+        <tr align="center">
+          <td>Han Solo</td>
+          <td>83</td>
+          <td>99</td>
+          <td>94</td>
+          <td>98</td>
+          <td>86</td>
+          <td>85</td>
+          <td>
+            <input type="text" id="tf-Solo-A7" value="86" size="3" />
+          </td>
+          <td>80</td>
+          <td>84</td>
+        </tr>
+        <tr align="center">
+          <td>Lando Calresian</td>
+          <td>83</td>
+          <td>
+            <input type="text" id="tf-Calresian-A2" value="92" size="3" />
+          </td>
+          <td>80</td>
+          <td>80</td>
+          <td>92</td>
+          <td>92</td>
+          <td>94</td>
+          <td>87</td>
+          <td>95</td>
+        </tr>
+        <tr align="center">
+          <td>Boba Fet</td>
+          <td>85</td>
+          <td>89</td>
+          <td>94</td>
+          <td>83</td>
+          <td>83</td>
+          <td>84</td>
+          <td>91</td>
+          <td>87</td>
+          <td>96</td>
+        </tr>
+        <tr align="center">
+          <td>Darth Vader</td>
+          <td>81</td>
+          <td>81</td>
+          <td>
+            <input type="text" id="tf-Vader-A3" value="96" size="3" />
+          </td>
+          <td>80</td>
+          <td>89</td>
+          <td>88</td>
+          <td>82</td>
+          <td>80</td>
+          <td>82</td>
+        </tr>
+        <tr align="center">
+          <td>Obi-Wan Kenobi</td>
+          <td>
+            <input type="text" id="tf-Kenobi-A1" value="85" size="3" />
+          </td>
+          <td>99</td>
+          <td>87</td>
+          <td>82</td>
+          <td>88</td>
+          <td>83</td>
+          <td>88</td>
+          <td>92</td>
+          <td>80</td>
+        </tr>
+        <tr align="center">
+          <td>R2-D2</td>
+          <td>81</td>
+          <td>
+            <input type="text" id="tf-RD-A2" value="92" size="3" />
+          </td>
+          <td>
+            <input type="text" id="tf-RD-A3" value="82" size="3" />
+          </td>
+          <td>86</td>
+          <td>83</td>
+          <td>
+            <input type="text" id="tf-RD-A6" value="84" size="3" />
+          </td>
+          <td>98</td>
+          <td>85</td>
+          <td>96</td>
+        </tr>
+        <tr align="center">
+          <td>C-3PO</td>
+          <td>94</td>
+          <td>98</td>
+          <td>83</td>
+          <td>83</td>
+          <td>100</td>
+          <td>96</td>
+          <td>96</td>
+          <td>85</td>
+          <td>87</td>
+        </tr>
+        <tr align="center">
+          <td>Yoda</td>
+          <td>80</td>
+          <td>89</td>
+          <td>99</td>
+          <td>89</td>
+          <td>96</td>
+          <td>85</td>
+          <td>96</td>
+          <td>92</td>
+          <td>85</td>
+        </tr>
+        <tr align="center">
+          <td>Admiral Ackbar</td>
+          <td>82</td>
+          <td>88</td>
+          <td>95</td>
+          <td>100</td>
+          <td>
+            <input type="text" id="tf-Ackbar-A5" value="93" size="3" />
+          </td>
+          <td>98</td>
+          <td>85</td>
+          <td>87</td>
+          <td>99</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

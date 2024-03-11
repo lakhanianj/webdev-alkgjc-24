@@ -1,0 +1,51 @@
+.heading-style{
+font-weight: bold;
+color: rgb(49, 47, 47);
+}
+.card-image-dimensions{
+max-height: 150px
+}
+.col-dimensions{
+ width: 300px
+}
+.title-ellipsis-style {
+float: right; 
+font-size: 30px; 
+color: rgb(82, 79, 79);
+}
+.card-icon-style {
+color: gray; 
+float: left;
+margin-top: 10px
+}
+.txt-hidden-ellipses-overflow{
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+.card-title-style{
+text-decoration: none;  
+font-weight: bold;
+font-size: 15px;
+}
+.card-title-color-3700{
+color: rgb(13, 47, 105);
+}
+.card-title-color-3209{
+color: rgb(104, 202, 227);
+}
+.card-title-color-1209{
+color: red;
+}
+.card-title-color-3650{
+color: rgb(62, 0, 128);
+}
+.card-title-color-3302{
+color: green;
+}
+.card-title-color-3945{
+color: rgb(103, 71, 56);
+}
+.card-text-style{
+font-size: 12px
+}
