@@ -1,0 +1,39 @@
+.wd-kanbas-navigation {
+  background-color: black;
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  width: 80px;
+  height: 100%;
+  position: fixed;
+}
+.wd-kanbas-navigation li {
+  padding: 5px;
+  margin-bottom: 7px;
+  font-size: 0.85em;
+  text-align: center;
+}
+.wd-kanbas-navigation li.wd-active {
+  background-color: white;
+}
+.wd-kanbas-navigation li.wd-active a {
+  color:  rgb(193, 10, 10);
+}
+.wd-kanbas-navigation a {
+  color: white;
+  text-decoration: none;
+}
+.wd-color {
+  color: rgb(208, 205, 205) !important;
+}
+.wd-kanbas-navigation-icons {
+  color: rgb(193, 10, 10);
+  font-size: 2em;
+  margin-bottom: 5px;
+  display: block;
+  width: 100%;
+  text-align: center !important;
+}
+.align {
+  text-align: center;
+}
