@@ -1,0 +1,19 @@
+.wd-quiz-text-icons {
+    color: rgb(193, 10, 10);
+}
+
+.wd-quiz-tabs:hover {
+    color: black;
+}
+
+.wd-quiz-tabs-active {
+    color: black;
+}
+
+.wd-quiz-textarea {
+    height: 100px;
+}
+
+.wd-quiz-options {
+    font-weight: bold;
+}

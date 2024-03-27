@@ -7,8 +7,10 @@ import CourseNavigation from "./Navigation";
 import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
-import { FaChevronDown, FaTachometerAlt, FaHome, FaBook, FaDesktop, FaInbox, FaRegArrowAltCircleRight, FaRegCalendarAlt, FaRegClock, FaRegQuestionCircle, FaRegUserCircle, FaRegCheckSquare, FaPeopleArrows, FaRegStickyNote, FaAddressBook, FaBullhorn, FaBullseye, FaCircleNotch, FaComments, FaFileAlt, FaFolder, FaPlug, FaRegCircle, FaRocket, FaEye, FaGlasses } from "react-icons/fa";
+import { FaChevronDown, FaTachometerAlt, FaHome, FaBook, FaDesktop, FaInbox, FaRegArrowAltCircleRight, FaRegCalendarAlt, FaRegClock, FaRegQuestionCircle, FaRegUserCircle, FaRegCheckSquare, FaPeopleArrows, FaRegStickyNote, FaAddressBook, FaBullhorn, FaBullseye, FaCircleNotch, FaComments, FaFileAlt, FaFolder, FaPlug, FaRegCircle, FaRocket, FaGlasses } from "react-icons/fa";
 import "bootstrap/js/src/collapse.js";
+import Quizzes from "./Quizzes";
+import QuizzesEdit from "./Quizzes/Edit";
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -16,7 +18,7 @@ function Courses() {
   const path = useLocation();
   const pathSplit = path.pathname.split('/');
   const lastPathItem = decodeURI(pathSplit[pathSplit.length - 1]);
-  const secondLastPathItem = decodeURI(pathSplit[pathSplit.length - 2]);
+  // const secondLastPathItem = decodeURI(pathSplit[pathSplit.length - 2]);
   const { courseId } = useParams();
   const course = courses.find((course) => course._id === courseId);
 
@@ -160,6 +162,10 @@ function Courses() {
             <Route path="Modules" element={<Modules />} />
             <Route path="Piazza" element={<h1>Piazza</h1>} />
             <Route path="Zoom" element={<h1>Zoom</h1>} />
+            <Route path="Assignments" element={<Assignments />} />
+            <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
+            <Route path="Quizzes" element={<Quizzes />} />
+            <Route path="Quizzes/Edit" element={<QuizzesEdit />} />
             <Route path="Grades" element={<h1>Grades</h1>} />
             <Route path="People" element={<h1>People</h1>} />
             <Route path="Panopto Video" element={<h1>Panopto Video</h1>} />
@@ -172,8 +178,6 @@ function Courses() {
             <Route path="Collaborations" element={<h1>Collaborations</h1>} />
             <Route path="Progress Reports (EAB Navigate)" element={<h1>Progress Reports (EAB Navigate)</h1>} />
             <Route path="Settings" element={<h1>Settings</h1>} />
-            <Route path="Assignments" element={<Assignments />} />
-            <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
             <Route path="Grades" element={<h1>Grades</h1>} />
           </Routes>
         </div>

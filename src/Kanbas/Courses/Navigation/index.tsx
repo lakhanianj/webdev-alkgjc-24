@@ -2,10 +2,10 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import "./index.css"; // feel free to use the CSS from previous assignments
 import { courses } from "../../Database";
 function CourseNavigation() {
-  const links = ["Home", "Modules", "Piazza", "Zoom", "Grades",
+  const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades",
     "People", "Panopto Video", "Discussions", "Announcements",
     "Pages", "Files", "Rubrics", "Outcomes", "Collaborations",
-    "Progress Reports (EAB Navigate)", "Settings", "Assignments"];
+    "Progress Reports (EAB Navigate)", "Settings"];
   const { pathname } = useLocation();
   const { courseId } = useParams();
   const course = courses.find((course) => course._id === courseId);

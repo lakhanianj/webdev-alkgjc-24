@@ -7,7 +7,7 @@ import { reminders } from "../../Database";
 
 function Home() {
     const { courseId } = useParams();
-    const reminderList = reminders.filter((reminder) => reminder.course === courseId);
+    const reminderList = reminders.filter((reminder: any) => reminder.course === courseId);
     const statusButtons = [
         { label: "Import Existing Content", icon: <FaFileImport className="padding-right-8 fs-4" /> },
         { label: "Import From Commons", icon: <FaDownload className="padding-right-8 fs-4" /> },
@@ -51,7 +51,7 @@ function Home() {
                 <div className="course-titles-style">To Do</div>
                 <hr className="margin-top-0" />
 
-                {reminderList.map((reminder, index) => (
+                {reminderList.map((reminder: any, index: number) => (
                     <div key={index} className="padding-bottom-10">
                         <FaCircle className="font-red fs-10" />
                         <Link to={``} className="red-course-status-text">{reminder.name}</Link>

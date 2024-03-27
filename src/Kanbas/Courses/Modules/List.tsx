@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "../../Courses/index.css";
 
 import { modules } from "../../Database";
-import { FaEllipsisV, FaCheckCircle, FaPlusCircle, FaCaretDown, FaRegPlusSquare, FaPlus, FaLink, FaExternalLinkAlt, FaRegCheckCircle } from "react-icons/fa";
+import { FaEllipsisV, FaCheckCircle, FaCaretDown, FaPlus, FaLink, FaExternalLinkAlt, FaRegCheckCircle } from "react-icons/fa";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 function ModuleList() {

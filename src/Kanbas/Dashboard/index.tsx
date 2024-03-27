@@ -18,10 +18,10 @@ function Dashboard() {
             <h2>Published Courses ({courses.length})</h2> <hr />
             <div className="row">
                 <div className="row row-cols-1 row-cols-md-5 g-4">
-                    {courses.map((course) => (
+                    {courses.map((course: any) => (
                         <div key={course._id} className="col col-dimensions">
                             <div className="card">
-                                <img src={`/images/${course.image}`} className="card-img-top card-image-dimensions" />
+                                <img src={`/images/${course.image}`} className="card-img-top card-image-dimensions" alt="Course Logo" />
                                 <div className="card-body txt-hidden-ellipses-overflow">
                                     <Link className="card-title card-title-style" to={`/Kanbas/Courses/${course._id}/Home`} style={{ color: course.course_title_color }}>
                                         {course.name}</Link>

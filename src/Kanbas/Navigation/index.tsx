@@ -19,7 +19,7 @@ function KanbasNavigation() {
     <ul className="wd-kanbas-navigation">
         <li>
         <Link to={`https://www.northeastern.edu/`}> 
-        <img src={`/images/Northeastern_Logo.png`} style={{width: 68}}/>
+        <img src={`/images/Northeastern_Logo.png`} style={{width: 68}} alt="Northeastern logo"/>
         </Link>
         </li>
       {links.map((link, index) => (
