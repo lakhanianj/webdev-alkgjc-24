@@ -1,0 +1,32 @@
+[
+    {
+        "_id": "1",
+        "course": "3700",
+        "name": "Q1",
+        "dueDate": "2026-01-10",
+        "availableDate": "2023-01-03",
+        "pts": "38",
+        "numQuestions": "18",
+        "published": "True"
+    },
+    {
+        "_id": "2",
+        "course": "3700",
+        "name": "Q2",
+        "dueDate": "2023-01-10",
+        "availableDate": "2023-01-03",
+        "pts": "28",
+        "numQuestions": "8",
+        "published": "False"
+    },
+    {
+        "_id": "3",
+        "course": "3700",
+        "name": "Q3",
+        "dueDate": "2026-01-10 23:59:00",
+        "availableDate": "Thu Jan 02 2025 23:59:00",
+        "pts": "28",
+        "numQuestions": "8",
+        "published": "False"
+    }
+]

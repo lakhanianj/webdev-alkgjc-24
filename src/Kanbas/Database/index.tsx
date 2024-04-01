@@ -2,4 +2,5 @@ import courses from "./courses.json";
 import modules from "./modules.json";
 import reminders from "./reminders.json";
 import assignments from "./assignments.json";
-export { courses, modules, reminders, assignments };
+import quizzes from "./quizzes.json";
+export { courses, modules, reminders, assignments, quizzes };
