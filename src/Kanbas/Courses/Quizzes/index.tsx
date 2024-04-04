@@ -1,13 +1,35 @@
 import { FaBan, FaCaretDown, FaCheckCircle, FaEllipsisV } from "react-icons/fa";
 import { BsRocketTakeoff } from "react-icons/bs";
 import { quizzes } from "../../Database";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import "./index.css"; // feel free to use the CSS from previous assignments
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function Quizzes() {
+    const location = useLocation();
+    const { courseId } = useParams();
+
+    const initialQuizList = quizzes.filter(
+        (quiz) => quiz.course === courseId
+    );
+
+
+    const [quizList, setQuizList] = useState<{
+        _id: string;
+        course: string;
+        name: string;
+        dueDate: string;
+        availableDate: string;
+        pts: string;
+        numQuestions: string;
+        published: string;
+    }[]>(initialQuizList)
+
+    function getMaxId() {
+        return Math.max(...quizList.map(quiz => parseInt(quiz._id)), 0);
+    }
 
     const [contextMenuState, setContextMenuState] = useState<{ [key: string]: boolean }>({});
 
@@ -18,12 +40,18 @@ function Quizzes() {
         }));
     };
 
-    const { courseId } = useParams();
-    console.log(courseId)
-    const quizList = quizzes.filter(
-        (quiz) => quiz.course === courseId
-    );
-    console.log(quizList)
+    const togglePublished = (quizId: string) => {
+        const updatedQuizList = quizList.map(quiz => {
+            if (quiz._id === quizId) {
+                return {
+                    ...quiz,
+                    published: quiz.published === "True" ? "False" : "True"
+                };
+            }
+            return quiz;
+        });
+        setQuizList(updatedQuizList);
+    };
 
     function formatDate(date: Date) {
         const dateString = date.toDateString();
@@ -66,6 +94,14 @@ function Quizzes() {
 
     }
 
+    function removeQuiz(id: string) {
+        let newArray = [...quizList];
+        newArray = newArray.filter((quiz) => quiz._id != id)
+        
+        setQuizList(newArray)
+        
+    }
+
     return (
         <>
             {/* Buttons */}
@@ -80,9 +116,11 @@ function Quizzes() {
                     </div>
 
                     <div className="float-right assignments-float-right-buttons">
-                        <button type="button" className="btn modules-module-button-style">
-                            + Quiz
-                        </button>
+                        <Link to={`${location.pathname}/${getMaxId() + 1}/Details`}>
+                            <button type="button" className="btn modules-module-button-style">
+                                + Quiz
+                            </button>
+                        </Link>
 
                         <button type="button" className="btn modules-publish-button-style">
                             <FaEllipsisV className="fa fa-ellipsis-v" />
@@ -107,7 +145,7 @@ function Quizzes() {
                                 <li className="list-group-item top-bottom-padding-10">
                                     <BsRocketTakeoff className="no-right-padding-margin text-success" />
                                     <Link className="assignment-item-style"
-                                        to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`}>{quiz.name}
+                                        to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Details`}>{quiz.name}
                                     </Link>
                                     <br />
 
@@ -137,10 +175,16 @@ function Quizzes() {
                                         <div className="float-end">
                                             <br></br>
                                             <div className="button-group">
-                                                <button className="btn rounded blue-button modules-module-button-style">Edit</button>
-                                                <button className="btn rounded modules-module-button-style">Delete</button>
-                                                <button className="btn rounded green-button modules-module-button-style">{quiz.published == "True" ? "Unpublish" : "Publish"}</button>
-                                            </div>
+                                                <Link to={`${location.pathname}/${quiz._id}/Details`}>
+                                                    <button className="btn rounded blue-button modules-module-button-style">Edit</button>
+                                                </Link>
+                                                <button onClick={() => { removeQuiz(quiz._id) }} className="btn rounded modules-module-button-style">Delete</button>
+                                                <button
+                                                    className="btn rounded green-button modules-module-button-style"
+                                                    onClick={() => togglePublished(quiz._id)}
+                                                >
+                                                    {quiz.published === "True" ? "Unpublish" : "Publish"}
+                                                </button>                                            </div>
                                         </div>
                                     )}
 
