@@ -112,7 +112,7 @@ function Quizzes() {
                                     <br />
 
                                     <span className="small-bold-quiz-text">{quizAvailability(quiz)}</span>
-                                    <span className="small-text">{quizAvailability(quiz) == "\nNot available until " ? formatDate(new Date(quiz.availableDate)) : ""}</span>
+                                    <span className="small-text">{quizAvailability(quiz) === "\nNot available until " ? formatDate(new Date(quiz.availableDate)) : ""}</span>
                                     <span className="small-gray-assignment-text">|</span>
                                     <span className="small-gray-assignment-text bold-text ">Due </span>
                                     <span className="small-text">{formatDate(new Date(quiz.dueDate))}</span>
@@ -122,7 +122,7 @@ function Quizzes() {
                                     <span className="small-gray-assignment-text">{quiz.numQuestions} questions</span>
 
                                     <span className="float-end">
-                                        {quiz.published == "True" ? (
+                                        {quiz.published === "True" ? (
                                             <FaCheckCircle className="text-success" />
                                         ) : (
                                             <FaBan />
@@ -137,9 +137,9 @@ function Quizzes() {
                                         <div className="float-end">
                                             <br></br>
                                             <div className="button-group">
-                                                <button className="btn rounded blue-button modules-module-button-style">Edit</button>
+                                                <Link className="btn rounded blue-button modules-module-button-style" to={`/Kanbas/Courses/${courseId}/Quizzes/Edit/${quiz._id}`}>Edit</Link>
                                                 <button className="btn rounded modules-module-button-style">Delete</button>
-                                                <button className="btn rounded green-button modules-module-button-style">{quiz.published == "True" ? "Unpublish" : "Publish"}</button>
+                                                <button className="btn rounded green-button modules-module-button-style">{quiz.published === "True" ? "Unpublish" : "Publish"}</button>
                                             </div>
                                         </div>
                                     )}

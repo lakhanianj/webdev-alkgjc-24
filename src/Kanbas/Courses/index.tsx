@@ -165,7 +165,7 @@ function Courses() {
             <Route path="Assignments" element={<Assignments />} />
             <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
             <Route path="Quizzes" element={<Quizzes />} />
-            <Route path="Quizzes/Edit" element={<QuizzesEdit />} />
+            <Route path="Quizzes/Edit/:quizId" element={<QuizzesEdit />} />
             <Route path="Grades" element={<h1>Grades</h1>} />
             <Route path="People" element={<h1>People</h1>} />
             <Route path="Panopto Video" element={<h1>Panopto Video</h1>} />
