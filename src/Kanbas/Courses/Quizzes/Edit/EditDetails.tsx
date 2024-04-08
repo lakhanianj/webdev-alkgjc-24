@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   FaBold,
   FaItalic,
@@ -11,14 +11,15 @@ import {
   FaCode,
   FaExpandAlt,
 } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { KanbasState } from "../../../store";
+import { setQuiz, updateQuiz } from "../reducer";
 import { useParams } from "react-router-dom";
-import { quizzes } from "../../../Database";
 
 export default function EditDetails() {
-  const { quizId } = useParams() ?? ("" as string);
-  const initQuiz = quizzes.find((quiz) => quiz._id === quizId);
-
-  const [quiz, setQuiz] = useState<any>(initQuiz);
+  const { quizId } = useParams();
+  const quiz = useSelector((state: KanbasState) => state.quizReducer.quiz);
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -26,7 +27,7 @@ export default function EditDetails() {
         <input
           className="form-control"
           value={quiz.name ?? `Unnamed Quiz`}
-          onChange={(e) => setQuiz({ ...quiz, name: e.target.value })}
+          onChange={(e) => dispatch(setQuiz({ ...quiz, name: e.target.value }))}
         />
       </div>
       <div className="pb-5">
@@ -119,9 +120,9 @@ export default function EditDetails() {
           </div>
           <textarea
             className="form-control wd-quiz-textarea"
-            value={quiz.instructions ?? ""}
+            value={quiz.description ?? ""}
             onChange={(e) => {
-              setQuiz({ ...quiz, instructions: e.target.value });
+              dispatch(setQuiz({ ...quiz, instructions: e.target.value }));
             }}
           ></textarea>
         </div>
@@ -156,32 +157,15 @@ export default function EditDetails() {
               <select
                 id="quiz-type"
                 className="dropdown-toggle modules-publish-button-style ms-3"
-                onChange={(e) => setQuiz({ ...quiz, quizType: e.target.value })}
+                onChange={(e) =>
+                  dispatch(setQuiz({ ...quiz, quizType: e.target.value }))
+                }
+                defaultValue={quiz.quizType}
               >
-                <option
-                  selected={quiz.quizType === "graded-quiz"}
-                  value="graded-quiz"
-                >
-                  Graded Quiz
-                </option>
-                <option
-                  selected={quiz.quizType === "practice-quiz"}
-                  value="practice-quiz"
-                >
-                  Practice Quiz
-                </option>
-                <option
-                  selected={quiz.quizType === "graded-survey"}
-                  value="graded-survey"
-                >
-                  Graded Survey
-                </option>
-                <option
-                  selected={quiz.quizType === "ungraded-survey"}
-                  value="ungraded-survey"
-                >
-                  Ungraded Survey
-                </option>
+                <option value="graded-quiz">Graded Quiz</option>
+                <option value="practice-quiz">Practice Quiz</option>
+                <option value="graded-survey">Graded Survey</option>
+                <option value="ungraded-survey">Ungraded Survey</option>
               </select>
             </div>
           </div>
@@ -191,30 +175,14 @@ export default function EditDetails() {
               id="assignment-group"
               className="dropdown-toggle modules-publish-button-style ms-3"
               onChange={(e) =>
-                setQuiz({ ...quiz, assignmentType: e.target.value })
+                dispatch(setQuiz({ ...quiz, assignmentType: e.target.value }))
               }
+              defaultValue={quiz.assignmentType}
             >
-              <option
-                selected={quiz.assignmentType === "quizzes"}
-                value="quizzes"
-              >
-                Quizzes
-              </option>
-              <option selected={quiz.assignmentType === "exams"} value="exams">
-                Exams
-              </option>
-              <option
-                selected={quiz.assignmentType === "assignments"}
-                value="assignments"
-              >
-                Assignments
-              </option>
-              <option
-                selected={quiz.assignmentType === "project"}
-                value="project"
-              >
-                Project
-              </option>
+              <option value="quizzes">Quizzes</option>
+              <option value="exams">Exams</option>
+              <option value="assignments">Assignments</option>
+              <option value="project">Project</option>
             </select>
           </div>
           <div>
@@ -229,7 +197,7 @@ export default function EditDetails() {
                   id="shuffle-ans"
                   defaultChecked={quiz.shuffled}
                   onChange={(e) =>
-                    setQuiz({ ...quiz, shuffled: e.target.value })
+                    dispatch(setQuiz({ ...quiz, shuffled: e.target.value }))
                   }
                 />
                 <label htmlFor="shuffle-ans">Shuffle Answers</label>
@@ -242,12 +210,14 @@ export default function EditDetails() {
                     value="TIME-LIMIT"
                     name="time-limit"
                     id="time-limit"
-                    defaultChecked={quiz.timeLimit !== 0}
+                    defaultChecked={quiz.timeLimit! > 0}
                     onChange={(e) =>
-                      setQuiz({
-                        ...quiz,
-                        timeLimit: e.target.value ? quiz.timeLimit : 0,
-                      })
+                      dispatch(
+                        setQuiz({
+                          ...quiz,
+                          timeLimit: e.target.value ? quiz.timeLimit : 0,
+                        })
+                      )
                     }
                   />
                   <label htmlFor="time-limit">Time Limit</label>
@@ -259,7 +229,7 @@ export default function EditDetails() {
                     id="time-limit-min"
                     defaultValue={quiz.timeLimit}
                     onChange={(e) =>
-                      setQuiz({ ...quiz, timeLimit: e.target.value })
+                      dispatch(setQuiz({ ...quiz, timeLimit: e.target.value }))
                     }
                   />
                   <label htmlFor="time-limit-min">Minutes</label>
@@ -272,9 +242,11 @@ export default function EditDetails() {
                   value="MULTI-ATTEMPT"
                   name="multi-attempt"
                   id="multi-attempt"
-                  defaultValue={quiz.multipleAttempts}
+                  defaultChecked={quiz.multipleAttempts}
                   onChange={(e) =>
-                    setQuiz({ ...quiz, multipleAttempts: e.target.value })
+                    dispatch(
+                      setQuiz({ ...quiz, multipleAttempts: e.target.value })
+                    )
                   }
                 />
                 <label htmlFor="multi-attempt">Allow Multiple Attempts</label>
@@ -300,7 +272,7 @@ export default function EditDetails() {
                     id="due-form"
                     defaultValue={quiz.dueDate}
                     onChange={(e) =>
-                      setQuiz({ ...quiz, dueDate: e.target.value })
+                      dispatch(setQuiz({ ...quiz, dueDate: e.target.value }))
                     }
                   />
                 </div>
@@ -314,7 +286,9 @@ export default function EditDetails() {
                         id="due-form"
                         defaultValue={quiz.availableDate}
                         onChange={(e) =>
-                          setQuiz({ ...quiz, availableDate: e.target.value })
+                          dispatch(
+                            setQuiz({ ...quiz, availableDate: e.target.value })
+                          )
                         }
                       />
                     </div>
@@ -327,7 +301,9 @@ export default function EditDetails() {
                         className="form-control"
                         defaultValue={quiz.untilDate}
                         onChange={(e) =>
-                          setQuiz({ ...quiz, untilDate: e.target.value })
+                          dispatch(
+                            setQuiz({ ...quiz, untilDate: e.target.value })
+                          )
                         }
                       />
                     </div>
@@ -365,7 +341,11 @@ export default function EditDetails() {
             <button type="button" className="btn modules-buttons-styles mx-3">
               Save & Publish
             </button>
-            <button type="button" className="btn modules-module-button-style">
+            <button
+              type="button"
+              className="btn modules-module-button-style"
+              onClick={() => dispatch(updateQuiz(quiz))}
+            >
               Save
             </button>
           </div>
