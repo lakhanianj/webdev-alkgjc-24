@@ -319,39 +319,6 @@ export default function EditDetails() {
           </div>
         </div>
       </div>
-      <div>
-        <hr />
-        <div className="d-flex justify-content-between">
-          <div>
-            <input
-              className="me-2"
-              type="checkbox"
-              value="NOTIFY-CHANGE"
-              name="notify-change"
-              id="notify-quiz-change"
-            />
-            <label htmlFor="notify-quiz-change">
-              Notify users this quiz has changed
-            </label>
-          </div>
-          <div>
-            <button type="button" className="btn modules-buttons-styles">
-              Cancel
-            </button>
-            <button type="button" className="btn modules-buttons-styles mx-3">
-              Save & Publish
-            </button>
-            <button
-              type="button"
-              className="btn modules-module-button-style"
-              onClick={() => dispatch(updateQuiz(quiz))}
-            >
-              Save
-            </button>
-          </div>
-        </div>
-        <hr />
-      </div>
     </div>
   );
 }
