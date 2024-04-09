@@ -11,22 +11,22 @@ import {
   FaCode,
   FaExpandAlt,
 } from "react-icons/fa";
-import { useSelector, useDispatch } from "react-redux";
-import { KanbasState } from "../../../store";
+import { useDispatch, useSelector } from "react-redux";
 import { setQuiz, updateQuiz } from "../reducer";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { KanbasState } from "../../../store";
 
 export default function EditDetails() {
-  const { quizId } = useParams();
-  const quiz = useSelector((state: KanbasState) => state.quizReducer.quiz);
   const dispatch = useDispatch();
+  const { courseId } = useParams();
+  const quiz = useSelector((state: KanbasState) => state.quizReducer.quiz);
 
   return (
     <div>
       <div className="mb-3">
         <input
           className="form-control"
-          value={quiz.name ?? `Unnamed Quiz`}
+          defaultValue={quiz.name ?? `Unnamed Quiz`}
           onChange={(e) => dispatch(setQuiz({ ...quiz, name: e.target.value }))}
         />
       </div>
@@ -120,7 +120,7 @@ export default function EditDetails() {
           </div>
           <textarea
             className="form-control wd-quiz-textarea"
-            value={quiz.description ?? ""}
+            defaultValue={quiz.instructions ?? ""}
             onChange={(e) => {
               dispatch(setQuiz({ ...quiz, instructions: e.target.value }));
             }}
@@ -338,16 +338,27 @@ export default function EditDetails() {
             <button type="button" className="btn modules-buttons-styles">
               Cancel
             </button>
-            <button type="button" className="btn modules-buttons-styles mx-3">
-              Save & Publish
-            </button>
-            <button
-              type="button"
-              className="btn modules-module-button-style"
-              onClick={() => dispatch(updateQuiz(quiz))}
-            >
-              Save
-            </button>
+            <Link to={`/Kanbas/Courses/${courseId}/Quizzes`}>
+              <button
+                type="button"
+                className="btn modules-buttons-styles mx-3"
+                onClick={() => {
+                  dispatch(setQuiz({ ...quiz, published: true }));
+                  dispatch(updateQuiz(quiz));
+                }}
+              >
+                Save & Publish
+              </button>
+            </Link>
+            <Link to={`/Kanbas/Courses/${courseId}/Quizzes`}>
+              <button
+                type="button"
+                className="btn modules-module-button-style"
+                onClick={() => dispatch(updateQuiz(quiz))}
+              >
+                Save
+              </button>
+            </Link>
           </div>
         </div>
         <hr />

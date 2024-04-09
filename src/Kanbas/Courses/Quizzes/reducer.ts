@@ -42,9 +42,20 @@ const quizzesSlice = createSlice({
         setQuiz: (state, action) => {
             state.quiz = action.payload;
         },
+        addQuiz: (state, action) => {
+            state.quizzes = [
+                ...state.quizzes,
+                { ...action.payload, _id: new Date().getTime().toString() },
+            ];
+        },
+        removeQuiz: (state, action) => {
+            state.quizzes = state.quizzes.filter(
+                (quiz) => quiz._id !== action.payload
+            );
+        }
     }
 });
 
 
-export const { updateQuiz, setQuiz } = quizzesSlice.actions;
+export const { updateQuiz, setQuiz, addQuiz, removeQuiz } = quizzesSlice.actions;
 export default quizzesSlice.reducer;

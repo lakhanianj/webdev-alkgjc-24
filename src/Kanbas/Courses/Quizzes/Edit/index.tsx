@@ -1,22 +1,34 @@
 import React, { useState } from "react";
-import { FaEllipsisV, FaWindowClose } from "react-icons/fa";
+import { FaCheck, FaEllipsisV, FaWindowClose } from "react-icons/fa";
 import "./index.css";
 import "../../../Courses/index.css";
 import EditDetails from "./EditDetails";
+import { KanbasState } from "../../../store";
+import { useSelector } from "react-redux";
 
 function QuizzesEdit() {
   // Details tab is the default tab and is the active tab when activeTab is true.
   // When activeTab is false, Questions is the active tab
   const [activeTab, setActiveTab] = useState(true);
 
+  const quiz = useSelector((state: KanbasState) => state.quizReducer.quiz);
+
   return (
     <>
       <div className="d-flex justify-content-end">
-        <h3 className="pe-4">Points</h3>
-        <h3 className="pe-4">0</h3>
-        <h4 className="pe-4">
-          <FaWindowClose /> Not Published
-        </h4>
+        <h3 className="pe-2">Points</h3>
+        <h3 className="pe-5">{quiz.pts}</h3>
+        <span className="pe-4">
+          {quiz.published ? (
+            <h4>
+              <FaCheck className="text-success" /> Published
+            </h4>
+          ) : (
+            <h4>
+              <FaWindowClose /> Not Published
+            </h4>
+          )}
+        </span>
         <button type="button" className="btn modules-buttons-styles">
           <FaEllipsisV />
         </button>

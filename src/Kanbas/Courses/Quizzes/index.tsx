@@ -1,47 +1,51 @@
 import { FaBan, FaCaretDown, FaCheckCircle, FaEllipsisV } from "react-icons/fa";
 import { BsRocketTakeoff } from "react-icons/bs";
-import { quizzes } from "../../Database";
 import { Link, useLocation, useParams } from "react-router-dom";
 import "./index.css"; // feel free to use the CSS from previous assignments
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useDispatch } from "react-redux";
-import { setQuiz } from "./reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { removeQuiz, setQuiz, updateQuiz } from "./reducer";
+import { KanbasState } from "../../store";
 
 function Quizzes() {
   const location = useLocation();
   const { courseId } = useParams();
   const dispatch = useDispatch();
 
-  const initialQuizList = quizzes.filter((quiz) => quiz.course === courseId);
+  const quizzes = useSelector(
+    (state: KanbasState) => state.quizReducer.quizzes
+  );
 
-  const [quizList, setQuizList] = useState<
-    {
-      _id: string;
-      course: string;
-      name: string;
-      dueDate: string;
-      availableDate: string;
-      pts: number;
-      numQuestions: number;
-      published: boolean;
-      instructions: string;
-      shuffled: boolean;
-      quizType: string;
-      assignmentType: string;
-      timeLimit: number;
-      multipleAttempts: boolean;
-      showCorrectAnswers: boolean;
-      accessCode: string;
-      oneQuestionAtATime: boolean;
-      webcamReq: boolean;
-      lockAfterAnswering: boolean;
-      untilDate: string;
-    }[]
-  >(initialQuizList);
+  const quizList = quizzes.filter((quiz: any) => quiz.course === courseId);
+
+  //   const [quizList, setQuizList] = useState<
+  //     {
+  //       _id: string;
+  //       course: string;
+  //       name: string;
+  //       dueDate: string;
+  //       availableDate: string;
+  //       pts: number;
+  //       numQuestions: number;
+  //       published: boolean;
+  //       instructions: string;
+  //       shuffled: boolean;
+  //       quizType: string;
+  //       assignmentType: string;
+  //       timeLimit: number;
+  //       multipleAttempts: boolean;
+  //       showCorrectAnswers: boolean;
+  //       accessCode: string;
+  //       oneQuestionAtATime: boolean;
+  //       webcamReq: boolean;
+  //       lockAfterAnswering: boolean;
+  //       untilDate: string;
+  //     }[]
+  //   >(initialQuizList);
 
   function getMaxId() {
-    return Math.max(...quizList.map((quiz) => parseInt(quiz._id)), 0);
+    return Math.max(...quizList.map((quiz: any) => parseInt(quiz._id)), 0);
   }
 
   const [contextMenuState, setContextMenuState] = useState<{
@@ -55,18 +59,18 @@ function Quizzes() {
     }));
   };
 
-  const togglePublished = (quizId: string) => {
-    const updatedQuizList = quizList.map((quiz) => {
-      if (quiz._id === quizId) {
-        return {
-          ...quiz,
-          published: !quiz.published,
-        };
-      }
-      return quiz;
-    });
-    setQuizList(updatedQuizList);
-  };
+  //   const togglePublished = (quizId: string) => {
+  //     const updatedQuizList = quizList.map((quiz: any) => {
+  //       if (quiz._id === quizId) {
+  //         return {
+  //           ...quiz,
+  //           published: !quiz.published,
+  //         };
+  //       }
+  //       return quiz;
+  //     });
+  //     setQuizList(updatedQuizList);
+  //   };
 
   function formatDate(date: Date) {
     const dateString = date.toDateString();
@@ -120,12 +124,12 @@ function Quizzes() {
     }
   }
 
-  function removeQuiz(id: string) {
-    let newArray = [...quizList];
-    newArray = newArray.filter((quiz) => quiz._id !== id);
+  //   function removeQuiz(id: string) {
+  //     let newArray = [...quizList];
+  //     newArray = newArray.filter((quiz) => quiz._id !== id);
 
-    setQuizList(newArray);
-  }
+  //     setQuizList(newArray);
+  //   }
 
   return (
     <>
@@ -166,7 +170,7 @@ function Quizzes() {
             </div>
 
             <ul className="list-group">
-              {quizList.map((quiz) => (
+              {quizList.map((quiz: any) => (
                 <li className="list-group-item top-bottom-padding-10">
                   <BsRocketTakeoff className="no-right-padding-margin text-success" />
                   <Link
@@ -202,7 +206,7 @@ function Quizzes() {
                   </span>
 
                   <span className="float-end">
-                    {quiz.published === true ? (
+                    {quiz.published ? (
                       <FaCheckCircle className="text-success" />
                     ) : (
                       <FaBan />
@@ -226,14 +230,16 @@ function Quizzes() {
                         <Link to={`${location.pathname}/${quiz._id}/Edit`}>
                           <button
                             className="btn rounded blue-button modules-module-button-style"
-                            onClick={() => dispatch(setQuiz(quiz))}
+                            onClick={() => {
+                              dispatch(setQuiz(quiz));
+                            }}
                           >
                             Edit
                           </button>
                         </Link>
                         <button
                           onClick={() => {
-                            removeQuiz(quiz._id);
+                            dispatch(removeQuiz(quiz._id));
                           }}
                           className="btn rounded modules-module-button-style"
                         >
@@ -241,9 +247,16 @@ function Quizzes() {
                         </button>
                         <button
                           className="btn rounded green-button modules-module-button-style"
-                          onClick={() => togglePublished(quiz._id)}
+                          onClick={() =>
+                            dispatch(
+                              updateQuiz({
+                                ...quiz,
+                                published: !quiz.published,
+                              })
+                            )
+                          }
                         >
-                          {quiz.published === true ? "Unpublish" : "Publish"}
+                          {quiz.published ? "Unpublish" : "Publish"}
                         </button>{" "}
                       </div>
                     </div>
