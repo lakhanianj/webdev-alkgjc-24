@@ -18,7 +18,7 @@ function QuizDetails() {
     );
 
     const quiz = (quizList[0]);
-    
+
     return (
         <div className="margin-left-quiz">
             {/* buttons */}
@@ -34,13 +34,16 @@ function QuizDetails() {
                     Preview
                 </button>
 
-                <button type="button" className="btn modules-publish-button-style"
-                onClick={() => `/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Edit`}>
-                    <FaPencilAlt
-                        className="modules-publish-button-icon-style fs-5"
-                    />
-                    Edit
-                </button>
+                <Link to={`/Kanbas/Courses/3700/Quizzes/${quiz._id}/Edit`}>
+                    <button type="button" className="btn modules-publish-button-style">
+                        <FaPencilAlt
+                            className="modules-publish-button-icon-style fs-5"
+                        />
+                        Edit
+                    </button>
+                </Link>
+
+
 
                 <button type="button" className="btn modules-publish-button-style">
                     <FaEllipsisV className="fa fa-ellipsis-v" />
@@ -90,16 +93,16 @@ function QuizDetails() {
             </div>
 
             <br />
-            <div className="d-flex justify-content-around" style={{ minHeight: "100%"}}>
+            <div className="d-flex justify-content-around" style={{ minHeight: "100%" }}>
                 <div className="text-bold">Due</div>
                 <div className="text-bold">For</div>
                 <div className="text-bold">Available from</div>
                 <div className="text-bold">Until</div>
             </div>
-  
+
             <hr />
-       
-            <div className="d-flex justify-content-around" style={{ minHeight: "100%"}}>
+
+            <div className="d-flex justify-content-around" style={{ minHeight: "100%" }}>
                 <div>{formatDate(new Date(quiz.dueDate))}</div>
                 <div>{quiz.forWhom}</div>
                 <div>{formatDate(new Date(quiz.availableDate))}</div>
@@ -115,15 +118,15 @@ function formatDate(date: Date) {
     const hours = date.getHours();
     let timeString;
     if (hours === 0) {
-      timeString = `12:${("0" + date.getMinutes()).slice(-2)}am`; // Midnight
+        timeString = `12:${("0" + date.getMinutes()).slice(-2)}am`; // Midnight
     } else if (hours < 12) {
-      timeString = `${hours}:${("0" + date.getMinutes()).slice(-2)}am`; // AM hours
+        timeString = `${hours}:${("0" + date.getMinutes()).slice(-2)}am`; // AM hours
     } else if (hours === 12) {
-      timeString = `12:${("0" + date.getMinutes()).slice(-2)}pm`; // Noon
+        timeString = `12:${("0" + date.getMinutes()).slice(-2)}pm`; // Noon
     } else {
-      timeString = `${hours - 12}:${("0" + date.getMinutes()).slice(-2)}pm`; // PM hours
+        timeString = `${hours - 12}:${("0" + date.getMinutes()).slice(-2)}pm`; // PM hours
     }
     const [month, day] = dateString.split(" ").slice(1, 3); // Extract month and day
     return `${month} ${day} at ${timeString}`;
-  }
+}
 export default QuizDetails;
