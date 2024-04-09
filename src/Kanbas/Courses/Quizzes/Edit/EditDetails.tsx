@@ -12,13 +12,11 @@ import {
   FaExpandAlt,
 } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { setQuiz, updateQuiz } from "../reducer";
-import { Link, useParams } from "react-router-dom";
+import { setQuiz } from "../reducer";
 import { KanbasState } from "../../../store";
 
 export default function EditDetails() {
   const dispatch = useDispatch();
-  const { courseId } = useParams();
   const quiz = useSelector((state: KanbasState) => state.quizReducer.quiz);
 
   return (
@@ -318,50 +316,6 @@ export default function EditDetails() {
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        <hr />
-        <div className="d-flex justify-content-between">
-          <div>
-            <input
-              className="me-2"
-              type="checkbox"
-              value="NOTIFY-CHANGE"
-              name="notify-change"
-              id="notify-quiz-change"
-            />
-            <label htmlFor="notify-quiz-change">
-              Notify users this quiz has changed
-            </label>
-          </div>
-          <div>
-            <button type="button" className="btn modules-buttons-styles">
-              Cancel
-            </button>
-            <Link to={`/Kanbas/Courses/${courseId}/Quizzes`}>
-              <button
-                type="button"
-                className="btn modules-buttons-styles mx-3"
-                onClick={() => {
-                  dispatch(setQuiz({ ...quiz, published: true }));
-                  dispatch(updateQuiz(quiz));
-                }}
-              >
-                Save & Publish
-              </button>
-            </Link>
-            <Link to={`/Kanbas/Courses/${courseId}/Quizzes`}>
-              <button
-                type="button"
-                className="btn modules-module-button-style"
-                onClick={() => dispatch(updateQuiz(quiz))}
-              >
-                Save
-              </button>
-            </Link>
-          </div>
-        </div>
-        <hr />
       </div>
     </div>
   );
