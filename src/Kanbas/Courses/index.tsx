@@ -11,6 +11,7 @@ import { FaChevronDown, FaTachometerAlt, FaHome, FaBook, FaDesktop, FaInbox, FaR
 import "bootstrap/js/src/collapse.js";
 import Quizzes from "./Quizzes";
 import QuizzesEdit from "./Quizzes/Edit";
+import QuizDetails from "./Quizzes/Details";
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -166,6 +167,7 @@ function Courses() {
             <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
             <Route path="Quizzes" element={<Quizzes />} />
             <Route path="Quizzes/:quizId/Edit" element={<QuizzesEdit />} />
+            <Route path="Quizzes/:quizId/Details" element={<QuizDetails />} />
             <Route path="Grades" element={<h1>Grades</h1>} />
             <Route path="People" element={<h1>People</h1>} />
             <Route path="Panopto Video" element={<h1>Panopto Video</h1>} />

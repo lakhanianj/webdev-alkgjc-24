@@ -12,14 +12,18 @@
         "shuffled": true,
         "quizType": "graded-quiz",
         "assignmentType": "exams",
-        "timeLimit": 0,
+        "timeLimit": 5,
         "multipleAttempts": true,
+        "viewResponses": "Always",
         "showCorrectAnswers": true,
         "accessCode": "",
         "oneQuestionAtATime": true,
+        "lockdown": false,
+        "requiredToViewResult": false,
         "webcamReq": false,
         "lockAfterAnswering": true,
-        "untilDate": "2024-05-15"
+        "untilDate": "2024-05-15",
+        "forWhom": "Everyone"
     },
     {
         "_id": "2",
@@ -34,14 +38,18 @@
         "shuffled": false,
         "quizType": "practice-quiz",
         "assignmentType": "quizzes",
-        "timeLimit": 0,
+        "timeLimit": 20,
         "multipleAttempts": true,
+        "viewResponses": "Never",
         "showCorrectAnswers": true,
         "accessCode": "",
         "oneQuestionAtATime": false,
+        "lockdown": false,
+        "requiredToViewResult": true,
         "webcamReq": true,
         "lockAfterAnswering": false,
-        "untilDate": "2024-08-20"
+        "untilDate": "2024-08-20",
+        "forWhom": "Everyone"
     },
     {
         "_id": "3",
@@ -58,12 +66,16 @@
         "assignmentType": "quizzes",
         "timeLimit": 45,
         "multipleAttempts": false,
+        "viewResponses": "Always",
         "showCorrectAnswers": false,
         "accessCode": "",
         "oneQuestionAtATime": true,
+        "lockdown": true,
+        "requiredToViewResult": true, 
         "webcamReq": false,
         "lockAfterAnswering": true,
-        "untilDate": "2024-10-10"
+        "untilDate": "2024-10-10",
+        "forWhom": "Everyone"
     },
     {
         "_id": "4",
@@ -80,12 +92,16 @@
         "assignmentType": "assignments",
         "timeLimit": 120,
         "multipleAttempts": false,
+        "viewResponses": "Never",
         "showCorrectAnswers": false,
         "accessCode": "",
         "oneQuestionAtATime": false,
+        "lockdown": false,
+        "requiredToViewResult": false, 
         "webcamReq": true,
         "lockAfterAnswering": true,
-        "untilDate": "2024-03-28"
+        "untilDate": "2024-03-28",
+        "forWhom": "Everyone"
     },
     {
         "_id": "5",
@@ -102,12 +118,16 @@
         "assignmentType": "quizzes",
         "timeLimit": 30,
         "multipleAttempts": true,
+        "viewResponses": "Always",
         "showCorrectAnswers": true,
         "accessCode": "",
         "oneQuestionAtATime": true,
+        "lockdown": true,
+        "requiredToViewResult": false, 
         "webcamReq": true,
         "lockAfterAnswering": false,
-        "untilDate": "2024-09-15"
+        "untilDate": "2024-09-15",
+        "forWhom": "Everyone"
     },
     {
         "_id": "6",
@@ -124,12 +144,16 @@
         "assignmentType": "project",
         "timeLimit": 75,
         "multipleAttempts": false,
+        "viewResponses": "Never",
         "showCorrectAnswers": true,
         "accessCode": "",
         "oneQuestionAtATime": false,
+        "lockdown": false,
+        "requiredToViewResult": false, 
         "webcamReq": false,
         "lockAfterAnswering": true,
-        "untilDate": "2024-12-05"
+        "untilDate": "2024-12-05",
+        "forWhom": "Everyone"
     },
     {
         "_id": "7",
@@ -146,12 +170,16 @@
         "assignmentType": "quizzes",
         "timeLimit": 50,
         "multipleAttempts": true,
+        "viewResponses": "Always",
         "showCorrectAnswers": false,
         "accessCode": "",
         "oneQuestionAtATime": true,
+        "lockdown": false,
+        "requiredToViewResult": true,
         "webcamReq": true,
         "lockAfterAnswering": false,
-        "untilDate": "2024-02-14"
+        "untilDate": "2024-02-14",
+        "forWhom": "Everyone"
     },
     {
         "_id": "8",
@@ -168,11 +196,15 @@
         "assignmentType": "assignments",
         "timeLimit": 85,
         "multipleAttempts": false,
+        "viewResponses": "Always",
         "showCorrectAnswers": true,
         "accessCode": "",
         "oneQuestionAtATime": false,
+        "lockdown": false,
+        "requiredToViewResult": true,
         "webcamReq": false,
         "lockAfterAnswering": true,
-        "untilDate": "2024-07-20"
+        "untilDate": "2024-07-20",
+        "forWhom": "Everyone"
     }
 ]
