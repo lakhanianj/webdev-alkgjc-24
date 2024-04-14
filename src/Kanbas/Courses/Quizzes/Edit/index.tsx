@@ -20,16 +20,15 @@ function QuizzesEdit() {
   return (
     <>
       <div className="d-flex justify-content-end">
-        <h3 className="pe-2">Points</h3>
-        <h3 className="pe-5">{quiz.pts}</h3>
+        <h4 className="pe-2">Points:  {quiz.pts} |</h4>
         <span className="pe-4">
           {quiz.published ? (
             <h4>
-              <FaCheck className="text-success" /> Published
+              <FaCheck className="text-success" /> Published |
             </h4>
           ) : (
             <h4>
-              <FaWindowClose /> Not Published
+              <FaWindowClose className="text-danger" /> Not Published |
             </h4>
           )}
         </span>

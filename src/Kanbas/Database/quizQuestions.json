@@ -1,0 +1,33 @@
+[
+    {
+        "_id": "1",
+        "course": "3700",
+        "quiz": "1",
+        "type": "mc",
+        "pts": 4,
+        "question": "what is 2+2?",
+        "blanks": 4,
+        "answer": "4"
+    },
+    {
+        "_id": "2",
+        "course": "3700",
+        "quiz": "1",
+        "type": "fb",
+        "pts": 4,
+        "question": "what is 2+3?",
+        "choices": [
+            "3", "4", "5", "6"
+        ],
+        "answer": "6"
+    },
+    {
+        "_id": "3",
+        "course": "3700",
+        "quiz": "1",
+        "type": "tf",
+        "pts": 4,
+        "question": "is 2+2 5?",
+        "answer": true
+    }
+]
