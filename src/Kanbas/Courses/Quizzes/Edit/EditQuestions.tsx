@@ -1,4 +1,4 @@
-import { FaEllipsisV, FaPlus, FaSearch } from "react-icons/fa";
+import { FaEdit, FaEllipsisV, FaPlus, FaSearch, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./index.css";
 import "../../../Courses/index.css";
@@ -7,10 +7,11 @@ import { SetStateAction, useState } from "react";
 import MultipleChoiceQuestion from "./QuestionTypes/MultipleChoiceQuestion";
 import TrueFalseQuestion from "./QuestionTypes/TrueFalseQuestion";
 import FillBlanksQuestion from "./QuestionTypes/FillBlanksQuestion";
-
+import { quizQuestions } from "../../../Database/index"
 export default function EditQuestions() {
     const [questionEditor, setQuestionEditor] = useState(false);
     const [selectedType, setSelectedType] = useState("mc"); // Default value for dropdown
+    const [questions, setQuizQuestions] = useState(quizQuestions)
 
     const toggleQuestionEditor = () => {
         setQuestionEditor(!questionEditor);
@@ -35,6 +36,27 @@ export default function EditQuestions() {
                     <FaSearch></FaSearch> Find Questions
                 </button>
             </div>
+
+            {!questionEditor && (
+                <div>
+                    <br />
+
+                    <div className="question-box">
+                        {/* Display list of questions here */}
+                        {questions.map((question, index) => (
+                            <div key={index} className="question">
+                                <span className="fw-bold">Question {question._id}: </span>
+                                <span>{question.question}</span>
+                                <span className="float-end">
+                                    <FaEdit className="bigger text-success"></FaEdit>
+                                    <FaTrash className="bigger text-danger"></FaTrash>
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+            )}
 
             {questionEditor && (
                 <div>

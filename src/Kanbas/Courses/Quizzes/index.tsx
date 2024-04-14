@@ -19,31 +19,6 @@ function Quizzes() {
 
   const quizList = quizzes.filter((quiz: any) => quiz.course === courseId);
 
-  //   const [quizList, setQuizList] = useState<
-  //     {
-  //       _id: string;
-  //       course: string;
-  //       name: string;
-  //       dueDate: string;
-  //       availableDate: string;
-  //       pts: number;
-  //       numQuestions: number;
-  //       published: boolean;
-  //       instructions: string;
-  //       shuffled: boolean;
-  //       quizType: string;
-  //       assignmentType: string;
-  //       timeLimit: number;
-  //       multipleAttempts: boolean;
-  //       showCorrectAnswers: boolean;
-  //       accessCode: string;
-  //       oneQuestionAtATime: boolean;
-  //       webcamReq: boolean;
-  //       lockAfterAnswering: boolean;
-  //       untilDate: string;
-  //     }[]
-  //   >(initialQuizList);
-
   function getMaxId() {
     return Math.max(...quizList.map((quiz: any) => parseInt(quiz._id)), 0);
   }
@@ -58,19 +33,6 @@ function Quizzes() {
       [quizId]: !prevState[quizId],
     }));
   };
-
-  //   const togglePublished = (quizId: string) => {
-  //     const updatedQuizList = quizList.map((quiz: any) => {
-  //       if (quiz._id === quizId) {
-  //         return {
-  //           ...quiz,
-  //           published: !quiz.published,
-  //         };
-  //       }
-  //       return quiz;
-  //     });
-  //     setQuizList(updatedQuizList);
-  //   };
 
   function formatDate(date: Date) {
     const dateString = date.toDateString();
@@ -123,13 +85,6 @@ function Quizzes() {
       return "\nAvailable";
     }
   }
-
-  //   function removeQuiz(id: string) {
-  //     let newArray = [...quizList];
-  //     newArray = newArray.filter((quiz) => quiz._id !== id);
-
-  //     setQuizList(newArray);
-  //   }
 
   return (
     <>
