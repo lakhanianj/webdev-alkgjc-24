@@ -141,7 +141,7 @@
         "instructions": "The third quiz of CS4550",
         "shuffled": true,
         "quizType": "graded-quiz",
-        "assignmentType": "project",
+        "assignmentType": "quizzes",
         "timeLimit": 75,
         "multipleAttempts": false,
         "viewResponses": "Never",

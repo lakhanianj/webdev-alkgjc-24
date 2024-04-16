@@ -1,75 +1,123 @@
-import { ChangeEvent, useState } from 'react';
-import { FaBold, FaEllipsisV, FaFont, FaHighlighter, FaItalic, FaSuperscript, FaTrash, FaUnderline } from "react-icons/fa";
+import { ChangeEvent, useState } from "react";
+import {
+  FaBold,
+  FaEllipsisV,
+  FaFont,
+  FaHighlighter,
+  FaItalic,
+  FaSuperscript,
+  FaTrash,
+  FaUnderline,
+} from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useDispatch, useSelector } from "react-redux";
+import { KanbasState } from "../../../../store";
+import Kanbas from "../../../..";
+import { addAnswer, deleteAnswer, setAnswer, setQuestion } from "./reducer";
 
 export default function MultipleChoiceQuestion() {
-    const [choices, setChoices] = useState([{ text: '', isCorrect: false }]);
+  const dispatch = useDispatch();
 
-    const addChoice = () => {
-        setChoices([...choices, { text: '', isCorrect: false }]);
-    };
+  const question = useSelector(
+    (state: KanbasState) => state.questionReducer.question
+  );
 
-    const deleteChoice = (index: number) => {
-        const newChoices = [...choices];
-        newChoices.splice(index, 1);
-        setChoices(newChoices);
-    }
+  //   const [choices, setChoices] = useState(question.choices);
 
-    const handleChoiceTextChange = (index: number, event: ChangeEvent<HTMLTextAreaElement>) => {
-        const newChoices = [...choices];
-        newChoices[index].text = event.target.value;
-        setChoices(newChoices);
-    };
+  //   const addChoice = () => {
+  //     setChoices([...choices, { text: "", isCorrect: false }]);
+  //   };
 
-    const handleCorrectChoiceChange = (index: number) => {
-        const newChoices = [...choices];
-        newChoices.forEach((choice, i) => {
-            newChoices[i].isCorrect = i === index;
-        });
-        setChoices(newChoices);
-    };
+  //   const deleteChoice = (index: number) => {
+  //     const newChoices = [...choices];
+  //     newChoices.splice(index, 1);
+  //     setChoices(newChoices);
+  //   };
 
-    return (
-        <div>
-            <div>
-                <br />
-                <h6>Enter your question and multiple answers, then select the one correct answer.</h6>
-                <h5>Question:</h5>
-                {/* Buttons for editing, viewing, etc. */}
-                <textarea
-                    className="form-control wd-quiz-textarea"
-                ></textarea>
+  //   const handleChoiceTextChange = (
+  //     index: number,
+  //     event: ChangeEvent<HTMLTextAreaElement>
+  //   ) => {
+  //     const newChoices = [...choices];
+  //     newChoices[index].text = event.target.value;
+  //     setChoices(newChoices);
+  //   };
 
-                <br />
-                <h5>Answers:</h5>
-                {choices.map((choice, index) => (
-                    <div key={index} className="d-flex align-items-center mb-2">
-                        <label className="mx-1" htmlFor={index.toString()}>Correct choice?</label>
-                        <input
-                            type="radio"
-                            checked={choice.isCorrect}
-                            onChange={() => handleCorrectChoiceChange(index)}
-                            id={index.toString()}
+  //   const handleCorrectChoiceChange = (index: number) => {
+  //     const newChoices = [...choices];
+  //     newChoices.forEach((choice, i) => {
+  //       newChoices[i].isCorrect = i === index;
+  //     });
+  //     setChoices(newChoices);
+  //   };
 
-                        />
-                        <textarea
-                            className='mx-1'
-                            value={choice.text}
-                            onChange={(event) => handleChoiceTextChange(index, event)}
-                            placeholder="Insert choice here"
-                        />
-                        <button type="button" onClick={() => deleteChoice(index)}>
-                            <FaTrash></FaTrash>
-                        </button>
-                    </div>
-                ))}
-                <button type="button" className="btn btn-danger" onClick={addChoice}>
-                    Add Choice
-                </button>
-            </div>
-            <br/>
-            <button className='btn btn-warning'>Cancel</button>
-            <button className='mx-2 btn btn-danger'>Update Question</button>
-        </div>
-    );
+  return (
+    <div>
+      <div>
+        <br />
+        <h6>
+          Enter your question and multiple answers, then select the one correct
+          answer.
+        </h6>
+        <h5>Question:</h5>
+        {/* Buttons for editing, viewing, etc. */}
+        <textarea
+          className="form-control wd-quiz-textarea"
+          defaultValue={question.question}
+          onChange={(e) =>
+            dispatch(setQuestion({ ...question, question: e.target.value }))
+          }
+        ></textarea>
+
+        <br />
+        <h5>Answers:</h5>
+        {question.choices?.map((choice: any, index: number) => (
+          <div key={index} className="d-flex align-items-center mb-2">
+            <label className="mx-1" htmlFor={index.toString()}>
+              Correct choice?
+            </label>
+            <input
+              type="radio"
+              name="correctAnswer"
+              defaultChecked={choice.value === question.correctAnswer}
+              onChange={(e) =>
+                dispatch(
+                  setQuestion({ ...question, correctAnswer: e.target.value })
+                )
+              }
+              id={index.toString()}
+            />
+            <textarea
+              className="mx-1"
+              defaultValue={choice.value}
+              onChange={(e) => {
+                dispatch(setAnswer({ _id: choice._id, value: e.target.value }));
+                dispatch(
+                  setQuestion({ ...question, correctAnswer: e.target.value })
+                );
+              }}
+              placeholder="Insert choice here"
+            />
+            <button
+              type="button"
+              className="btn"
+              onClick={() => dispatch(deleteAnswer(choice._id))}
+            >
+              <FaTrash></FaTrash>
+            </button>
+          </div>
+        ))}
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={() => dispatch(addAnswer())}
+        >
+          Add Choice
+        </button>
+      </div>
+      <br />
+      <button className="btn btn-warning">Cancel</button>
+      <button className="mx-2 btn btn-danger">Update Question</button>
+    </div>
+  );
 }

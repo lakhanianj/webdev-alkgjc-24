@@ -1,33 +1,63 @@
 [
     {
         "_id": "1",
+        "title": "question",
         "course": "3700",
         "quiz": "1",
         "type": "mc",
         "pts": 4,
-        "question": "what is 2+2?",
-        "blanks": 4,
-        "answer": "4"
+        "question": "What is 2+3?",
+        "choices": [
+            {
+                "_id": "1",
+                "value": "3"
+            },
+            {
+                "_id": "2",
+                "value": "4"
+            },
+            {
+                "_id": "3",
+                "value": "5"
+            },
+            {
+                "_id": "4",
+                "value": "6"
+            }
+        ],
+        "correctAnswer": "5"
     },
     {
         "_id": "2",
+        "title": "question",
         "course": "3700",
         "quiz": "1",
         "type": "fb",
         "pts": 4,
-        "question": "what is 2+3?",
-        "choices": [
-            "3", "4", "5", "6"
-        ],
-        "answer": "6"
+        "question": "What does DOM stand for",
+        "answers": [
+            {
+                "_id": "1",
+                "value": "Document"
+            },
+            {
+                "_id": "2",
+                "value": "Object"
+            },
+            {
+                "_id": "3",
+                "value": "Model"
+            }
+        ]
     },
     {
         "_id": "3",
+        "title": "question",
         "course": "3700",
         "quiz": "1",
         "type": "tf",
         "pts": 4,
-        "question": "is 2+2 5?",
-        "answer": true
+        "question": "Does 2+2 = 5?",
+        "correctAnswer": false
     }
 ]
