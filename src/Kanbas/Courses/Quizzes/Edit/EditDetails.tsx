@@ -195,7 +195,7 @@ export default function EditDetails() {
                   id="shuffle-ans"
                   defaultChecked={quiz.shuffled}
                   onChange={(e) =>
-                    dispatch(setQuiz({ ...quiz, shuffled: e.target.value }))
+                    dispatch(setQuiz({ ...quiz, shuffled: !quiz.shuffled }))
                   }
                 />
                 <label htmlFor="shuffle-ans">Shuffle Answers</label>
@@ -243,7 +243,7 @@ export default function EditDetails() {
                   defaultChecked={quiz.multipleAttempts}
                   onChange={(e) =>
                     dispatch(
-                      setQuiz({ ...quiz, multipleAttempts: e.target.value })
+                      setQuiz({ ...quiz, multipleAttempts: !quiz.multipleAttempts })
                     )
                   }
                 />

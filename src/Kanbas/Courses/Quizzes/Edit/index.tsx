@@ -4,7 +4,7 @@ import "./index.css";
 import "../../../Courses/index.css";
 import EditDetails from "./EditDetails";
 import EditQuestions from "./EditQuestions";
-import { updateQuiz } from "../reducer";
+import { addQuiz, updateQuiz } from "../reducer";
 import { useSelector, useDispatch } from "react-redux";
 import { KanbasState } from "../../../store";
 import { Link, useParams } from "react-router-dom";
@@ -17,10 +17,18 @@ function QuizzesEdit() {
   const dispatch = useDispatch();
   const { courseId } = useParams();
 
+  const handleSave = () => {
+    if (quiz._id) {
+      dispatch(updateQuiz(quiz));
+    } else {
+      dispatch(addQuiz(quiz));
+    }
+  };
+
   return (
     <>
       <div className="d-flex justify-content-end">
-        <h4 className="pe-2">Points:  {quiz.pts} |</h4>
+        <h4 className="pe-2">Points: {quiz.pts} |</h4>
         <span className="pe-4">
           {quiz.published ? (
             <h4>
@@ -94,9 +102,8 @@ function QuizzesEdit() {
                   type="button"
                   className="btn modules-buttons-styles mx-3"
                   onClick={() => {
-                    dispatch(
-                      updateQuiz({ ...quiz, published: true })
-                    );
+                    handleSave();
+                    dispatch(updateQuiz({ ...quiz, published: true }));
                   }}
                 >
                   Save & Publish
@@ -106,7 +113,7 @@ function QuizzesEdit() {
                 <button
                   type="button"
                   className="btn modules-module-button-style"
-                  onClick={() => dispatch(updateQuiz(quiz))}
+                  onClick={handleSave}
                 >
                   Save
                 </button>

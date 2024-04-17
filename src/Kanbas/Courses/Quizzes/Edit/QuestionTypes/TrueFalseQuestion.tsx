@@ -83,9 +83,9 @@ export default function TrueFalseQuestion() {
         </div>
         {/* ))} */}
       </div>
-      <br />
+      {/* <br />
       <button className="btn btn-warning">Cancel</button>
-      <button className="mx-2 btn btn-danger">Update Question</button>
+      <button className="mx-2 btn btn-danger">Update Question</button> */}
     </div>
   );
 }

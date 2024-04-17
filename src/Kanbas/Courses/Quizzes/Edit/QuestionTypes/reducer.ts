@@ -11,7 +11,6 @@ const initialState = {
         type: "mc",
         pts: 0,
         question: "",
-        choices: [{ _id: "", value: "" }],
         answers: [{ _id: "", value: "" }],
         correctAnswer: "-"
     },
@@ -45,57 +44,24 @@ const questionsSlice = createSlice({
             );
         },
         setAnswer: (state, action) => {
-            switch (state.question.type) {
-                case "mc":
-                    state.question.choices = state.question.choices.map((choice) => {
-                        if (choice._id === action.payload._id) {
-                            return { _id: choice._id, value: action.payload.value };
-                        } else {
-                            return choice;
-                        }
-                    });
-                    break;
-                case "fb":
-                    state.question.answers = state.question.answers.map((answer) => {
-                        if (answer._id === action.payload._id) {
-                            return { _id: answer._id, value: action.payload.value };
-                        } else {
-                            return answer;
-                        }
-                    });
-                    break;
-                case "tf":
-                default:
-                    break;
+            if (state.question.type !== "tf") {
+                state.question.answers = state.question.answers?.map((answer) => {
+                    if (answer._id === action.payload._id) {
+                        return { _id: answer._id, value: action.payload.value };
+                    } else {
+                        return answer;
+                    }
+                });
             }
         },
         addAnswer: (state) => {
-            switch (state.question.type) {
-                case "mc":
-                    state.question.choices = [...state.question.choices,
-                    { _id: new Date().getTime().toString(), value: "" }];
-                    break;
-                case "fb":
-                    state.question.answers = [...state.question.answers, { _id: new Date().getTime().toString(), value: "" }];
-                    break;
-                case "tf":
-                    break;
-                default:
-                    break;
+            if (state.question.type !== "tf") {
+                state.question.answers = [...state.question.answers, { _id: new Date().getTime().toString(), value: "" }];
             }
         },
         deleteAnswer: (state, action) => {
-            switch (state.question.type) {
-                case "mc":
-                    state.question.choices = state.question.choices.filter((choice) => choice._id !== action.payload);
-                    break;
-                case "fb":
-                    state.question.answers = state.question.answers.filter((answer) => answer._id !== action.payload);
-                    break;
-                case "tf":
-                    break;
-                default:
-                    break;
+            if (state.question.type !== "tf") {
+                state.question.answers = state.question.answers?.filter((answer) => answer._id !== action.payload);
             }
         }
     }

@@ -16,6 +16,8 @@ import Kanbas from "../../../..";
 import { addAnswer, deleteAnswer, setAnswer, setQuestion } from "./reducer";
 
 export default function MultipleChoiceQuestion() {
+  // correct answer for multiple choice question is id of the answer
+
   const dispatch = useDispatch();
 
   const question = useSelector(
@@ -71,7 +73,7 @@ export default function MultipleChoiceQuestion() {
 
         <br />
         <h5>Answers:</h5>
-        {question.choices?.map((choice: any, index: number) => (
+        {question.answers?.map((choice: any, index: number) => (
           <div key={index} className="d-flex align-items-center mb-2">
             <label className="mx-1" htmlFor={index.toString()}>
               Correct choice?
@@ -79,22 +81,25 @@ export default function MultipleChoiceQuestion() {
             <input
               type="radio"
               name="correctAnswer"
-              defaultChecked={choice.value === question.correctAnswer}
-              onChange={(e) =>
+              checked={choice._id === question.correctAnswer}
+              onClick={() =>
                 dispatch(
-                  setQuestion({ ...question, correctAnswer: e.target.value })
+                  setQuestion({ ...question, correctAnswer: choice._id })
                 )
               }
               id={index.toString()}
             />
             <textarea
+              id={index.toString()}
               className="mx-1"
               defaultValue={choice.value}
               onChange={(e) => {
                 dispatch(setAnswer({ _id: choice._id, value: e.target.value }));
-                dispatch(
-                  setQuestion({ ...question, correctAnswer: e.target.value })
-                );
+                if (choice._id === question.correctAnswer) {
+                  dispatch(
+                    setQuestion({ ...question, correctAnswer: e.target.value })
+                  );
+                }
               }}
               placeholder="Insert choice here"
             />
@@ -115,9 +120,9 @@ export default function MultipleChoiceQuestion() {
           Add Choice
         </button>
       </div>
-      <br />
+      {/* <br />
       <button className="btn btn-warning">Cancel</button>
-      <button className="mx-2 btn btn-danger">Update Question</button>
+      <button className="mx-2 btn btn-danger">Update Question</button> */}
     </div>
   );
 }
