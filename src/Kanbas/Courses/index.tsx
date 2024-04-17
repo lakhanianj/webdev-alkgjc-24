@@ -12,6 +12,7 @@ import "bootstrap/js/src/collapse.js";
 import Quizzes from "./Quizzes";
 import QuizzesEdit from "./Quizzes/Edit";
 import QuizDetails from "./Quizzes/Details";
+import QuizPreview from "./Quizzes/Preview";
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -168,6 +169,7 @@ function Courses() {
             <Route path="Quizzes" element={<Quizzes />} />
             <Route path="Quizzes/:quizId/Edit" element={<QuizzesEdit />} />
             <Route path="Quizzes/:quizId/Details" element={<QuizDetails />} />
+            <Route path="Quizzes/Preview" element={<QuizPreview />} />
             <Route path="Grades" element={<h1>Grades</h1>} />
             <Route path="People" element={<h1>People</h1>} />
             <Route path="Panopto Video" element={<h1>Panopto Video</h1>} />
