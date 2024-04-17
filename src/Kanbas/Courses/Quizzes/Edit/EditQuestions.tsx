@@ -10,13 +10,14 @@ import FillBlanksQuestion from "./QuestionTypes/FillBlanksQuestion";
 import { useDispatch, useSelector } from "react-redux";
 import { KanbasState } from "../../../store";
 import {
+  addQuestion,
   removeQuestion,
   setQuestion,
   updateQuestion,
 } from "./QuestionTypes/reducer";
 
 export default function EditQuestions() {
-  const { quizId } = useParams();
+  const { courseId, quizId } = useParams();
   const dispatch = useDispatch();
   const [questionEditor, setQuestionEditor] = useState(false);
   const [selectedType, setSelectedType] = useState("mc"); // Default value for dropdown
@@ -31,12 +32,21 @@ export default function EditQuestions() {
     target: { value: SetStateAction<string> };
   }) => {
     setSelectedType(event.target.value);
+    dispatch(setQuestion({ ...question, type: event.target.value }));
   };
 
   const handleEditQuestion = (question: any) => {
     setSelectedType(question.type);
     dispatch(setQuestion(question));
     setQuestionEditor(true);
+  };
+
+  const handleSave = () => {
+    if (question._id) {
+      dispatch(updateQuestion(question));
+    } else {
+      dispatch(addQuestion(question));
+    }
   };
 
   const questions = questionsAll.filter(
@@ -47,7 +57,18 @@ export default function EditQuestions() {
     <div>
       <div className="d-flex justify-content-center align-items-end">
         <button
-          onClick={() => setQuestionEditor(!questionEditor)}
+          onClick={(e) => {
+            handleEditQuestion({
+              title: "Untitled Question",
+              course: courseId,
+              quiz: quizId,
+              type: "mc",
+              pts: 0,
+              question: "",
+              answers: [],
+              correctAnswer: "-",
+            });
+          }}
           type="button"
           className="mx-4 btn modules-publish-button-style"
         >
@@ -115,11 +136,11 @@ export default function EditQuestions() {
             <button
               className="btn modules-module-button-style"
               onClick={() => {
-                dispatch(updateQuestion(question));
+                handleSave();
                 setQuestionEditor(false);
               }}
             >
-              Update Question
+              Save Question
             </button>
           </div>
         </div>

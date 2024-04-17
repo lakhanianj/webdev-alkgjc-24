@@ -7,7 +7,7 @@
         "type": "mc",
         "pts": 4,
         "question": "What is 2+3?",
-        "choices": [
+        "answers": [
             {
                 "_id": "1",
                 "value": "3"
@@ -25,7 +25,7 @@
                 "value": "6"
             }
         ],
-        "correctAnswer": "5"
+        "correctAnswer": "3"
     },
     {
         "_id": "2",
@@ -48,7 +48,8 @@
                 "_id": "3",
                 "value": "Model"
             }
-        ]
+        ],
+        "correctAnswer": ""
     },
     {
         "_id": "3",
@@ -58,6 +59,7 @@
         "type": "tf",
         "pts": 4,
         "question": "Does 2+2 = 5?",
-        "correctAnswer": false
+        "correctAnswer": false,
+        "answers": []
     }
 ]

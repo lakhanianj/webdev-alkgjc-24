@@ -19,9 +19,9 @@ function Quizzes() {
 
   const quizList = quizzes.filter((quiz: any) => quiz.course === courseId);
 
-  function getMaxId() {
-    return Math.max(...quizList.map((quiz: any) => parseInt(quiz._id)), 0);
-  }
+  // function getMaxId() {
+  //   return Math.max(...quizList.map((quiz: any) => parseInt(quiz._id)), 0);
+  // }
 
   const [contextMenuState, setContextMenuState] = useState<{
     [key: string]: boolean;
@@ -86,6 +86,32 @@ function Quizzes() {
     }
   }
 
+  const handleNewQuiz = () => {
+    dispatch(
+      setQuiz({
+        course: courseId,
+        name: "Unnamed Quiz",
+        dueDate: "",
+        availableDate: "",
+        pts: 0,
+        numQuestions: 0,
+        published: false,
+        description: "",
+        shuffled: true,
+        quizType: "graded-quiz",
+        assignmentType: "quizzes",
+        timeLimit: 20,
+        multipleAttempts: false,
+        showCorrectAnswers: true,
+        accessCode: "",
+        oneQuestionAtATime: true,
+        webcamReq: false,
+        lockAfterAnswering: false,
+        untilDate: "",
+      })
+    );
+  };
+
   return (
     <>
       {/* Buttons */}
@@ -101,7 +127,10 @@ function Quizzes() {
           </div>
 
           <div className="float-right assignments-float-right-buttons">
-            <Link to={`${location.pathname}/${getMaxId() + 1}/Details`}>
+            <Link
+              to={`${location.pathname}/New`}
+              onClick={handleNewQuiz}
+            >
               <button type="button" className="btn modules-module-button-style">
                 + Quiz
               </button>
