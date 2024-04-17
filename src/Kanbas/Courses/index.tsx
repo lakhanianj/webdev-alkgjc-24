@@ -12,6 +12,7 @@ import "bootstrap/js/src/collapse.js";
 import Quizzes from "./Quizzes";
 import QuizzesEdit from "./Quizzes/Edit";
 import QuizDetails from "./Quizzes/Details";
+import QuizPreview from "./Quizzes/Preview";
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
