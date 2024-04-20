@@ -1,0 +1,36 @@
+.heading-style-sign-profile {
+    font-weight: bold;
+    color: rgb(49, 47, 47);
+}
+
+.signin-save-button-style {
+    width: 100%;
+    background-color: rgb(235, 232, 232) !important;
+    border: 1px !important;
+    border-color: gray !important;
+    border-style: solid !important;
+    color: rgb(74, 72, 72) !important;
+    margin-top: 8px;
+}
+
+.form-title-style {
+    font-weight: bold;
+}
+
+.form-input-label-style {
+    color: rgb(193, 10, 10);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.icon-button-add-user {
+    background-color: transparent !important;
+    border: 0px;
+    color: green;
+}
+
+.icon-button-delete-user {
+    background-color: transparent !important;
+    border: 0px;
+    color: rgb(193, 10, 10);
+}

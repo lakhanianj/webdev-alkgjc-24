@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kanbas Courses Assignments Edit</title>
+  </head>
+  <body>
+    <form>
+      <select id="select-grading">
+        <option selectedvalue="SpeedGrader">SpeedGrader</option>
+      </select>
+    </form>
+    <hr />
+    <h3>Assignment Name</h3>
+    <form id="textarea">
+      <input
+        id="text-fields-assignment-name"
+        value="A1 - ENV + HTML"
+      /><br /><br />
+      <textarea cols="21" rows="2">This is the assignment description.</textarea
+      ><br /><br />
+      <label for="text-fields-pts">Points</label><br />
+      <input id="text-fields-pts" value="100" /><br /><br />
+      <label for="select-assignment-group">Assignment Group</label><br />
+      <select id="select-assignment-group">
+        <option selectedvalue="ASSIGNMENTS">ASSIGNMENTS</option></select
+      ><br /><br />
+      <label for="select-display-grade">Display Grade as</label><br />
+      <select id="select-display-grade">
+        <option selectedvalue="Percentage">Percentage</option></select
+      ><br /><br />
+
+      <label for="select-submission-type">Submission Type</label><br />
+      <select id="select-submission-type">
+        <option selectedvalue="Online">Online</option></select
+      ><br /><br />
+
+      <label>Online Entry Options</label>
+      <br />
+      <input
+        type="checkbox"
+        value="TEXT ENTRY"
+        name="check-online-entry"
+        id="chkbox-txt-entry"
+      />
+      <label for="chkbox-txt-entry">Text Entry</label><br />
+
+      <input
+        type="checkbox"
+        value="WEBSITE URL"
+        name="check-online-entry"
+        id="chkbox-website"
+      />
+      <label for="chkbox-website">Website URL</label><br />
+
+      <input
+        type="checkbox"
+        value="MEDIA RECORDIGNS"
+        name="check-online-entry"
+        id="chkbox-media"
+      />
+      <label for="chkbox-media">Media Recordings</label><br />
+
+      <input
+        type="checkbox"
+        value="STUDENT ANNOTATION"
+        name="check-online-entry"
+        id="chkbox-annotation"
+      />
+      <label for="chkbox-annotation">Student Annotation</label><br />
+
+      <input
+        type="checkbox"
+        value="FILE UPLOADS"
+        name="check-online-entry"
+        id="chkbox-file"
+      />
+      <label for="chkbox-file">File Uploads</label><br /><br />
+    </form>
+
+    <label for="text-fields-assign-to">Assign<br />Assign to<br /></label>
+    <form id="textarea">
+      <input id="text-fields-assign-to" value="Everyone" /><br /><br />
+
+      <label for="text-fields-due">Due</label><br />
+      <input type="date" id="text-fields-due" value="2021-01-01" /><br /><br />
+
+      <label for="text-fields-available-from">Available from</label><br />
+      <input
+        type="date"
+        id="text-fields-available-from"
+        value="2021-01-01"
+      /><br /><br />
+
+      <label for="text-fields-until">Until</label><br />
+      <input
+        type="date"
+        id="text-fields-until"
+        value="2021-01-01"
+      /><br /><br />
+    </form>
+    <a href="/Kanbas/Courses/Assignments/screen.html">
+      <button>Cancel</button>
+    </a>
+    <a href="/Kanbas/Courses/Assignments/screen.html">
+      <button>Save</button>
+    </a>
+  </body>
+</html>
