@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { removeQuiz, setQuiz, updateQuiz } from "./reducer";
 import { KanbasState } from "../../store";
+import "./index.css";
 
 function Quizzes() {
   const location = useLocation();
@@ -190,11 +191,24 @@ function Quizzes() {
                   </span>
 
                   <span className="float-end">
-                    {quiz.published ? (
-                      <FaCheckCircle className="text-success" />
-                    ) : (
-                      <FaBan />
-                    )}
+                    <button
+                      className="transparent-button"
+                      onClick={() =>
+                        dispatch(
+                          updateQuiz({
+                            ...quiz,
+                            published: !quiz.published,
+                          })
+                        )
+                      }>
+                      {quiz.published ? (
+                        <FaCheckCircle className="publish-icon text-success" />
+                      ) : (
+                        <FaBan className="text-danger publish-icon" />
+                      )}
+                    </button>
+
+
                     <button
                       className="left-margin-smaller"
                       onClick={() => toggleContextMenu(quiz._id)}
@@ -211,6 +225,19 @@ function Quizzes() {
                     <div className="float-end">
                       <br></br>
                       <div className="button-group">
+                        <button
+                          className="btn rounded green-button modules-module-button-style"
+                          onClick={() =>
+                            dispatch(
+                              updateQuiz({
+                                ...quiz,
+                                published: !quiz.published,
+                              })
+                            )
+                          }
+                        >
+                          {quiz.published ? "Unpublish" : "Publish"}
+                        </button>
                         <Link to={`${location.pathname}/${quiz._id}/Edit`}>
                           <button
                             className="btn rounded blue-button modules-module-button-style"
@@ -229,19 +256,6 @@ function Quizzes() {
                         >
                           Delete
                         </button>
-                        <button
-                          className="btn rounded green-button modules-module-button-style"
-                          onClick={() =>
-                            dispatch(
-                              updateQuiz({
-                                ...quiz,
-                                published: !quiz.published,
-                              })
-                            )
-                          }
-                        >
-                          {quiz.published ? "Unpublish" : "Publish"}
-                        </button>{" "}
                       </div>
                     </div>
                   )}
