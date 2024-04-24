@@ -30,6 +30,10 @@ const quizzesSlice = createSlice({
     name: "quizzes",
     initialState,
     reducers: {
+        setQuizzes: (state, action) => {
+            state.quizzes = action.payload;
+        },
+
         updateQuiz: (state, action) => {
             state.quizzes = state.quizzes.map((quiz) => {
                 if (quiz._id === action.payload._id) {
@@ -43,10 +47,7 @@ const quizzesSlice = createSlice({
             state.quiz = action.payload;
         },
         addQuiz: (state, action) => {
-            state.quizzes = [
-                ...state.quizzes,
-                { ...action.payload, _id: new Date().getTime().toString() },
-            ];
+            state.quizzes = [...state.quizzes, action.payload];
         },
         removeQuiz: (state, action) => {
             state.quizzes = state.quizzes.filter(
@@ -57,5 +58,5 @@ const quizzesSlice = createSlice({
 });
 
 
-export const { updateQuiz, setQuiz, addQuiz, removeQuiz } = quizzesSlice.actions;
+export const { updateQuiz, setQuiz, addQuiz, removeQuiz, setQuizzes } = quizzesSlice.actions;
 export default quizzesSlice.reducer;

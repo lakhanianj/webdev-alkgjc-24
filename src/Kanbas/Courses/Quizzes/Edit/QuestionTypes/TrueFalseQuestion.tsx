@@ -1,14 +1,4 @@
-import { ChangeEvent, useState } from "react";
-import {
-  FaBold,
-  FaEllipsisV,
-  FaFont,
-  FaHighlighter,
-  FaItalic,
-  FaSuperscript,
-  FaTrash,
-  FaUnderline,
-} from "react-icons/fa";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { KanbasState } from "../../../../store";

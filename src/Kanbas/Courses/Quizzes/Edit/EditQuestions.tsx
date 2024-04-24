@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import "./index.css";
 import "../../../Courses/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import MultipleChoiceQuestion from "./QuestionTypes/MultipleChoiceQuestion";
 import TrueFalseQuestion from "./QuestionTypes/TrueFalseQuestion";
 import FillBlanksQuestion from "./QuestionTypes/FillBlanksQuestion";
@@ -13,20 +13,38 @@ import {
   addQuestion,
   removeQuestion,
   setQuestion,
+  setQuestions,
   updateQuestion,
 } from "./QuestionTypes/reducer";
+import { findQuestionById, findQuestionsForQuiz } from "./QuestionTypes/client";
 
 export default function EditQuestions() {
   const { courseId, quizId } = useParams();
   const dispatch = useDispatch();
   const [questionEditor, setQuestionEditor] = useState(false);
   const [selectedType, setSelectedType] = useState("mc"); // Default value for dropdown
-  const questionsAll = useSelector(
+
+  const questions = useSelector(
     (state: KanbasState) => state.questionReducer.questions
   );
+
   const question = useSelector(
     (state: KanbasState) => state.questionReducer.question
   );
+
+  const fetchQuestion = async () => {
+    if (quizId !== "New") {
+      const fetchedQuestion = await findQuestionById(question._id);
+      dispatch(setQuestion(fetchedQuestion));
+    }
+  };
+
+  const fetchQuestions = async () => {
+    if (quizId !== "New") {
+      const questions = await findQuestionsForQuiz(quizId ?? "");
+      dispatch(setQuestions(questions));
+    }
+  };
 
   const handleTypeChange = (event: {
     target: { value: SetStateAction<string> };
@@ -47,17 +65,25 @@ export default function EditQuestions() {
     } else {
       dispatch(addQuestion(question));
     }
+    
   };
 
-  const questions = questionsAll.filter(
-    (question: any) => question.quiz === quizId
-  );
+  useEffect(() => {
+    fetchQuestions();
+    if (questionEditor) {
+      fetchQuestion();
+    }
+  }, []);
+
+  // const questions = questionsAll.filter(
+  //   (question: any) => question.quiz === quizId
+  // );
 
   return (
     <div>
       <div className="d-flex justify-content-center align-items-end">
         <button
-          onClick={(e) => {
+          onClick={() => {
             handleEditQuestion({
               title: "Untitled Question",
               course: courseId,
@@ -151,7 +177,7 @@ export default function EditQuestions() {
             {/* Display list of questions here */}
             {questions.map((question, index) => (
               <div key={index} className="question">
-                <span className="fw-bold">Question {question._id}: </span>
+                <span className="fw-bold">Question "{question.title}": </span>
                 <span>{question.question}</span>
                 <span className="float-end">
                   <FaEdit

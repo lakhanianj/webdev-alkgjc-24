@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   FaBold,
   FaItalic,
@@ -11,13 +11,27 @@ import {
   FaCode,
   FaExpandAlt,
 } from "react-icons/fa";
+import { useParams } from "react-router";
+import { findQuizById } from "../client";
+import { KanbasState } from "../../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { setQuiz } from "../reducer";
-import { KanbasState } from "../../../store";
 
 export default function EditDetails() {
   const dispatch = useDispatch();
   const quiz = useSelector((state: KanbasState) => state.quizReducer.quiz);
+
+  const { quizId } = useParams();
+
+  const fetchQuiz = async () => {
+    if (quizId !== "New") {
+      findQuizById(quizId).then((quiz) => dispatch(setQuiz(quiz)));
+    }
+  };
+
+  useEffect(() => {
+    fetchQuiz();
+  }, []);
 
   return (
     <div>
@@ -208,12 +222,12 @@ export default function EditDetails() {
                     value="TIME-LIMIT"
                     name="time-limit"
                     id="time-limit"
-                    defaultChecked={quiz.timeLimit! > 0}
+                    defaultChecked={quiz.timeLimit > 0}
                     onChange={(e) =>
                       dispatch(
                         setQuiz({
                           ...quiz,
-                          timeLimit: e.target.value ? quiz.timeLimit : 0,
+                          timeLimit: e.target.value ? 0 : quiz.timeLimit,
                         })
                       )
                     }
@@ -227,7 +241,12 @@ export default function EditDetails() {
                     id="time-limit-min"
                     defaultValue={quiz.timeLimit}
                     onChange={(e) =>
-                      dispatch(setQuiz({ ...quiz, timeLimit: e.target.value }))
+                      dispatch(
+                        setQuiz({
+                          ...quiz,
+                          timeLimit: parseInt(e.target.value),
+                        })
+                      )
                     }
                   />
                   <label htmlFor="time-limit-min">Minutes</label>
@@ -243,7 +262,10 @@ export default function EditDetails() {
                   defaultChecked={quiz.multipleAttempts}
                   onChange={(e) =>
                     dispatch(
-                      setQuiz({ ...quiz, multipleAttempts: !quiz.multipleAttempts })
+                      setQuiz({
+                        ...quiz,
+                        multipleAttempts: !quiz.multipleAttempts,
+                      })
                     )
                   }
                 />

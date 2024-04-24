@@ -2,23 +2,75 @@ import { FaBan, FaCaretDown, FaCheckCircle, FaEllipsisV } from "react-icons/fa";
 import { BsRocketTakeoff } from "react-icons/bs";
 import { Link, useLocation, useParams } from "react-router-dom";
 import "./index.css"; // feel free to use the CSS from previous assignments
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useDispatch, useSelector } from "react-redux";
-import { removeQuiz, setQuiz, updateQuiz } from "./reducer";
-import { KanbasState } from "../../store";
 import "./index.css";
+import { deleteQuiz, findQuizzesForCourse, updateQuiz } from "./client";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeQuiz,
+  setQuiz,
+  setQuizzes,
+  updateQuiz as updateQuizRedux,
+} from "./reducer";
+import { KanbasState } from "../../store";
+import { setQuestion, setQuestions } from "./Edit/QuestionTypes/reducer";
 
 function Quizzes() {
   const location = useLocation();
   const { courseId } = useParams();
   const dispatch = useDispatch();
-
   const quizzes = useSelector(
     (state: KanbasState) => state.quizReducer.quizzes
   );
+  // const [quiz, setQuiz] = useState({
+  //   course: courseId,
+  //   name: "Unnamed Quiz",
+  //   dueDate: "",
+  //   availableDate: "",
+  //   pts: 0,
+  //   numQuestions: 0,
+  //   published: false,
+  //   description: "",
+  //   shuffled: true,
+  //   quizType: "graded-quiz",
+  //   assignmentType: "quizzes",
+  //   timeLimit: 20,
+  //   multipleAttempts: false,
+  //   showCorrectAnswers: true,
+  //   accessCode: "",
+  //   oneQuestionAtATime: true,
+  //   lockdown: false,
+  //   requiredToViewResult: false,
+  //   webcamReq: false,
+  //   lockAfterAnswering: false,
+  //   untilDate: "",
+  //   forWhom: "",
+  // });
 
-  const quizList = quizzes.filter((quiz: any) => quiz.course === courseId);
+  // const [quizzes, setQuizzes] = useState([]);
+
+  const handleDeleteQuiz = (quizId: string) => {
+    deleteQuiz(quizId).then((status) => {
+      dispatch(removeQuiz(quizId));
+    });
+  };
+
+  const handlePublishQuiz = async (quiz: any) => {
+    updateQuiz({
+      ...quiz,
+      published: !quiz.published,
+    }).then((status) => {
+      dispatch(
+        updateQuizRedux({
+          ...quiz,
+          published: !quiz.published,
+        })
+      );
+    });
+  };
+
+  // const quizList = quizzes.filter((quiz: any) => quiz.course === courseId);
 
   // function getMaxId() {
   //   return Math.max(...quizList.map((quiz: any) => parseInt(quiz._id)), 0);
@@ -106,12 +158,37 @@ function Quizzes() {
         showCorrectAnswers: true,
         accessCode: "",
         oneQuestionAtATime: true,
+        lockdown: false,
+        requiredToViewResult: false,
         webcamReq: false,
         lockAfterAnswering: false,
         untilDate: "",
+        forWhom: "",
+      })
+    );
+    dispatch(setQuestions([]));
+    dispatch(
+      setQuestion({
+        title: "",
+        course: "",
+        quiz: "",
+        type: "mc",
+        pts: 0,
+        question: "",
+        answers: [{ _id: "", value: "" }],
+        correctAnswer: "-",
       })
     );
   };
+
+  const fetchQuizzes = async () => {
+    const quizzes = await findQuizzesForCourse(courseId ?? "");
+    dispatch(setQuizzes(quizzes));
+  };
+
+  useEffect(() => {
+    fetchQuizzes();
+  }, []);
 
   return (
     <>
@@ -128,10 +205,7 @@ function Quizzes() {
           </div>
 
           <div className="float-right assignments-float-right-buttons">
-            <Link
-              to={`${location.pathname}/New`}
-              onClick={handleNewQuiz}
-            >
+            <Link to={`${location.pathname}/New/Edit`} onClick={handleNewQuiz}>
               <button type="button" className="btn modules-module-button-style">
                 + Quiz
               </button>
@@ -155,12 +229,15 @@ function Quizzes() {
             </div>
 
             <ul className="list-group">
-              {quizList.map((quiz: any) => (
+              {quizzes.map((quiz: any) => (
                 <li className="list-group-item top-bottom-padding-10">
                   <BsRocketTakeoff className="no-right-padding-margin text-success" />
                   <Link
                     className="assignment-item-style"
                     to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Details`}
+                    onClick={() => {
+                      dispatch(setQuiz(quiz));
+                    }}
                   >
                     {quiz.name}
                   </Link>
@@ -193,21 +270,14 @@ function Quizzes() {
                   <span className="float-end">
                     <button
                       className="transparent-button"
-                      onClick={() =>
-                        dispatch(
-                          updateQuiz({
-                            ...quiz,
-                            published: !quiz.published,
-                          })
-                        )
-                      }>
+                      onClick={() => handlePublishQuiz(quiz)}
+                    >
                       {quiz.published ? (
                         <FaCheckCircle className="publish-icon text-success" />
                       ) : (
                         <FaBan className="text-danger publish-icon" />
                       )}
                     </button>
-
 
                     <button
                       className="left-margin-smaller"
@@ -227,14 +297,7 @@ function Quizzes() {
                       <div className="button-group">
                         <button
                           className="btn rounded green-button modules-module-button-style"
-                          onClick={() =>
-                            dispatch(
-                              updateQuiz({
-                                ...quiz,
-                                published: !quiz.published,
-                              })
-                            )
-                          }
+                          onClick={() => handlePublishQuiz(quiz)}
                         >
                           {quiz.published ? "Unpublish" : "Publish"}
                         </button>
@@ -249,9 +312,7 @@ function Quizzes() {
                           </button>
                         </Link>
                         <button
-                          onClick={() => {
-                            dispatch(removeQuiz(quiz._id));
-                          }}
+                          onClick={() => handleDeleteQuiz(quiz._id)}
                           className="btn rounded modules-module-button-style"
                         >
                           Delete
