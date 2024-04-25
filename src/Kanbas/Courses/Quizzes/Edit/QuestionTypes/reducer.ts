@@ -4,7 +4,6 @@ import { quizQuestions } from "../../../../Database";
 const initialState = {
     questions: quizQuestions,
     question: {
-        _id: "",
         title: "",
         course: "",
         quiz: "",
@@ -32,11 +31,11 @@ const questionsSlice = createSlice({
         setQuestion: (state, action) => {
             state.question = action.payload;
         },
+        setQuestions: (state, action) => {
+            state.questions = action.payload;
+        },
         addQuestion: (state, action) => {
-            state.questions = [
-                ...state.questions,
-                { ...action.payload, _id: new Date().getTime().toString() },
-            ];
+            state.questions = [...state.questions, action.payload];
         },
         removeQuestion: (state, action) => {
             state.questions = state.questions.filter(
@@ -68,5 +67,5 @@ const questionsSlice = createSlice({
 });
 
 
-export const { updateQuestion, setQuestion, addQuestion, removeQuestion, setAnswer, addAnswer, deleteAnswer } = questionsSlice.actions;
+export const { updateQuestion, setQuestion, addQuestion, removeQuestion, setAnswer, addAnswer, deleteAnswer, setQuestions } = questionsSlice.actions;
 export default questionsSlice.reducer;

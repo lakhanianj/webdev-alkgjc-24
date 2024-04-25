@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./index.css";
 import { FaCaretLeft, FaCaretRight, FaExclamationCircle, FaPencilAlt, FaQuestionCircle } from "react-icons/fa";
 import { Link, useLocation, useParams } from "react-router-dom";

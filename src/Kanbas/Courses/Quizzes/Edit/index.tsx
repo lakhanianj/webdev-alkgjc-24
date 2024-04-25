@@ -1,29 +1,100 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCheck, FaEllipsisV, FaWindowClose } from "react-icons/fa";
 import "./index.css";
 import "../../../Courses/index.css";
 import EditDetails from "./EditDetails";
 import EditQuestions from "./EditQuestions";
-import { addQuiz, updateQuiz } from "../reducer";
-import { useSelector, useDispatch } from "react-redux";
-import { KanbasState } from "../../../store";
 import { Link, useParams } from "react-router-dom";
+import { createQuiz, findQuizById, updateQuiz } from "../client";
+import { useDispatch, useSelector } from "react-redux";
+import { addQuiz, setQuiz, updateQuiz as updateQuizRedux } from "../reducer";
+import { KanbasState } from "../../../store";
+import {
+  createQuestion,
+  findQuestionsForQuiz,
+  updateQuestion,
+} from "./QuestionTypes/client";
+import { setQuestions } from "./QuestionTypes/reducer";
 
 function QuizzesEdit() {
   // Details tab is the default tab and is the active tab when activeTab is true.
   // When activeTab is false, Questions is the active tab
   const [activeTab, setActiveTab] = useState(true);
-  const quiz = useSelector((state: KanbasState) => state.quizReducer.quiz);
   const dispatch = useDispatch();
-  const { courseId } = useParams();
+  const { courseId, quizId } = useParams();
+  const quiz = useSelector((state: KanbasState) => state.quizReducer.quiz);
+  const questions = useSelector(
+    (state: KanbasState) => state.questionReducer.questions
+  );
 
-  const handleSave = () => {
-    if (quiz._id) {
-      dispatch(updateQuiz(quiz));
-    } else {
-      dispatch(addQuiz(quiz));
+  const fetchQuiz = async () => {
+    if (quizId !== "New") {
+      const quiz = await findQuizById(quizId);
+      dispatch(setQuiz(quiz));
     }
   };
+
+  const fetchQuestions = async () => {
+    if (quizId !== "New") {
+      const questions = await findQuestionsForQuiz(quizId ?? "");
+      dispatch(setQuestions(questions));
+    }
+  };
+
+  const handleSave = (publish: boolean) => {
+    let total: number = 0;
+    const questionCount = questions.length;
+    if (questionCount > 0) {
+      questions.forEach((q: any) => {
+        total += parseInt(q.pts);
+      });
+    }
+    if (quizId === "New") {
+      createQuiz({
+        ...quiz,
+        pts: total,
+        numQuestions: questionCount,
+        published: publish,
+      }).then((quiz) => {
+        dispatch(
+          addQuiz({
+            ...quiz,
+            pts: total,
+            numQuestions: questionCount,
+            published: publish,
+          })
+        );
+      });
+    } else {
+      updateQuiz({
+        ...quiz,
+        pts: total,
+        numQuestions: questionCount,
+        published: publish,
+      }).then((quiz) => {
+        dispatch(
+          updateQuizRedux({
+            ...quiz,
+            pts: total,
+            numQuestions: questionCount,
+            published: publish,
+          })
+        );
+      });
+    }
+    questions.forEach(async (q: any) => {
+      if (q._id) {
+        await updateQuestion(q);
+      } else {
+        await createQuestion(q);
+      }
+    });
+  };
+
+  useEffect(() => {
+    fetchQuiz();
+    fetchQuestions();
+  }, []);
 
   return (
     <>
@@ -102,8 +173,7 @@ function QuizzesEdit() {
                   type="button"
                   className="btn modules-buttons-styles mx-3"
                   onClick={() => {
-                    handleSave();
-                    dispatch(updateQuiz({ ...quiz, published: true }));
+                    handleSave(true);
                   }}
                 >
                   Save & Publish
@@ -113,7 +183,7 @@ function QuizzesEdit() {
                 <button
                   type="button"
                   className="btn modules-module-button-style"
-                  onClick={handleSave}
+                  onClick={() => handleSave(quiz.published)}
                 >
                   Save
                 </button>

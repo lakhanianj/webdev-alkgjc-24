@@ -39,48 +39,109 @@ function Courses() {
   }, [courseId]);
 
   const path = useLocation();
-  const pathSplit = path.pathname.split('/');
+  const pathSplit = path.pathname.split("/");
   const lastPathItem = decodeURI(pathSplit[pathSplit.length - 1]);
   const secondLastPathItem = decodeURI(pathSplit[pathSplit.length - 2]);
 
   const sandwichCollapseLinks = [
-    { label: "Dashboard", icon: <FaTachometerAlt className="navbar-icon-style fs-1" /> },
-    { label: "Account", icon: <FaRegUserCircle className="navbar-icon-style wd-color fs-1" /> },
+    {
+      label: "Dashboard",
+      icon: <FaTachometerAlt className="navbar-icon-style fs-1" />,
+    },
+    {
+      label: "Account",
+      icon: <FaRegUserCircle className="navbar-icon-style wd-color fs-1" />,
+    },
     { label: "Courses", icon: <FaBook className="navbar-icon-style fs-1" /> },
-    { label: "Calendar", icon: <FaRegCalendarAlt className="navbar-icon-style fs-1" /> },
+    {
+      label: "Calendar",
+      icon: <FaRegCalendarAlt className="navbar-icon-style fs-1" />,
+    },
     { label: "Inbox", icon: <FaInbox className="navbar-icon-style fs-1" /> },
-    { label: "Studio", icon: <FaDesktop className="navbar-icon-styles fs-1" /> },
-    { label: "Commons", icon: <FaRegArrowAltCircleRight className="navbar-icon-style fs-1" /> },
-    { label: "History", icon: <FaRegClock className="navbar-icon-style fs-1" /> },
-    { label: "Help", icon: <FaRegQuestionCircle className="navbar-icon-style fs-1" /> },
+    {
+      label: "Studio",
+      icon: <FaDesktop className="navbar-icon-styles fs-1" />,
+    },
+    {
+      label: "Commons",
+      icon: <FaRegArrowAltCircleRight className="navbar-icon-style fs-1" />,
+    },
+    {
+      label: "History",
+      icon: <FaRegClock className="navbar-icon-style fs-1" />,
+    },
+    {
+      label: "Help",
+      icon: <FaRegQuestionCircle className="navbar-icon-style fs-1" />,
+    },
   ];
 
   const chevronCollapseLinks = [
     { label: "Home", icon: <FaHome className="navbar-icon-style fs-3" /> },
-    { label: "Modules", icon: <FaCircleNotch className="navbar-icon-style fs-3" /> },
+    {
+      label: "Modules",
+      icon: <FaCircleNotch className="navbar-icon-style fs-3" />,
+    },
     { label: "Piazza", icon: <FaPlug className="navbar-icon-style fs-3" /> },
     { label: "Zoom", icon: <FaPlug className="navbar-icon-style fs-3" /> },
-    { label: "Assignments", icon: <FaRegStickyNote className="navbar-icon-style fs-3" /> },
-    { label: "Quizzes", icon: <FaRocket className="navbar-icon-styles fs-3" /> },
-    { label: "Grades", icon: <FaRegCheckSquare className="navbar-icon-style fs-3" /> },
-    { label: "People", icon: <FaPeopleArrows className="navbar-icon-style fs-3" /> },
-    { label: "Panopto Video", icon: <FaPlug className="navbar-icon-style fs-3" /> },
-    { label: "Discussions", icon: <FaComments className="navbar-icon-style fs-3" /> },
-    { label: "Announcements", icon: <FaBullhorn className="navbar-icon-style fs-3" /> },
-    { label: "Pages", icon: <FaRegStickyNote className="navbar-icon-style fs-3" /> },
+    {
+      label: "Assignments",
+      icon: <FaRegStickyNote className="navbar-icon-style fs-3" />,
+    },
+    {
+      label: "Quizzes",
+      icon: <FaRocket className="navbar-icon-styles fs-3" />,
+    },
+    {
+      label: "Grades",
+      icon: <FaRegCheckSquare className="navbar-icon-style fs-3" />,
+    },
+    {
+      label: "People",
+      icon: <FaPeopleArrows className="navbar-icon-style fs-3" />,
+    },
+    {
+      label: "Panopto Video",
+      icon: <FaPlug className="navbar-icon-style fs-3" />,
+    },
+    {
+      label: "Discussions",
+      icon: <FaComments className="navbar-icon-style fs-3" />,
+    },
+    {
+      label: "Announcements",
+      icon: <FaBullhorn className="navbar-icon-style fs-3" />,
+    },
+    {
+      label: "Pages",
+      icon: <FaRegStickyNote className="navbar-icon-style fs-3" />,
+    },
     { label: "Files", icon: <FaFolder className="navbar-icon-style fs-3" /> },
-    { label: "Rubrics", icon: <FaFileAlt className="navbar-icon-style fs-3" /> },
-    { label: "Outcomes", icon: <FaBullseye className="navbar-icon-style fs-3" /> },
-    { label: "Collaborations", icon: <FaRegCircle className="navbar-icon-style fs-3" /> },
-    { label: "Syllabus", icon: <FaAddressBook className="navbar-icon-style fs-3" /> },
-    { label: "Progress Reports (EAB Navigate)", icon: <FaPlug className="navbar-icon-style fs-3" /> },
+    {
+      label: "Rubrics",
+      icon: <FaFileAlt className="navbar-icon-style fs-3" />,
+    },
+    {
+      label: "Outcomes",
+      icon: <FaBullseye className="navbar-icon-style fs-3" />,
+    },
+    {
+      label: "Collaborations",
+      icon: <FaRegCircle className="navbar-icon-style fs-3" />,
+    },
+    {
+      label: "Syllabus",
+      icon: <FaAddressBook className="navbar-icon-style fs-3" />,
+    },
+    {
+      label: "Progress Reports (EAB Navigate)",
+      icon: <FaPlug className="navbar-icon-style fs-3" />,
+    },
     { label: "Settings", icon: <FaPlug className="navbar-icon-style fs-3" /> },
   ];
 
   return (
-
     <div className="height-100-vh">
-
       {/* navbar */}
       <div className="d-block d-md-none text-center navbar-title-style center">
         {course?.course_addr} <br />
@@ -98,7 +159,9 @@ function Courses() {
               aria-expanded="false"
               aria-label="Toggle navigation Sandwich"
             >
-              <span><HiMiniBars3 className="white-color" /></span>
+              <span>
+                <HiMiniBars3 className="white-color" />
+              </span>
             </button>
 
             <button
@@ -110,19 +173,26 @@ function Courses() {
               aria-expanded="false"
               aria-label="Toggle navigation Chevron"
             >
-              <span><FaChevronDown className="white-color" /></span>
+              <span>
+                <FaChevronDown className="white-color" />
+              </span>
             </button>
           </p>
 
           {/* Sandwich Collapse Navbar */}
           <div
-            className="collapse collapse-horizontal padding-top-45" id="navbarSandwich">
+            className="collapse collapse-horizontal padding-top-45"
+            id="navbarSandwich"
+          >
             <ul className="card card body navbar-sandwich-collapse-card">
               {sandwichCollapseLinks.map((link, index) => (
-                <Link to={`/Kanbas/${link.label}`}
+                <Link
+                  to={`/Kanbas/${link.label}`}
                   className="nav-link active navbar-link-style padding-bottom-25"
                   aria-current="page"
-                >{link.icon} {link.label} </Link>
+                >
+                  {link.icon} {link.label}{" "}
+                </Link>
               ))}
             </ul>
           </div>
@@ -131,27 +201,34 @@ function Courses() {
           <div className="collapse padding-top-45" id="navbarChevron">
             <ul className="card card body navbar-chevron-collapse-card">
               {chevronCollapseLinks.map((link, index) => (
-                <Link to={`/Kanbas/Courses/${courseId}/${link.label}`}
+                <Link
+                  to={`/Kanbas/Courses/${courseId}/${link.label}`}
                   className="nav-link active navbar-link-style"
                   aria-current="page"
-                >{link.icon} {link.label} </Link>
+                >
+                  {link.icon} {link.label}{" "}
+                </Link>
               ))}
-
             </ul>
           </div>
         </div>
       </div>
 
-
       {/* breadcrumb */}
       <HiMiniBars3 className="fs-3 breadcrumb-bar-style d-none d-md-block" />
       <nav className="breadcrumb-nav-style d-none d-md-block">
-
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <Link to={``} className="breadcrumb-course-link-style">{course?.course_addr}</Link>
+            <Link to={``} className="breadcrumb-course-link-style">
+              {course?.course_addr}
+            </Link>
           </li>
-          <li className="breadcrumb-item active breadcrumb-page-link-style" aria-current="page">{lastPathItem}</li>
+          <li
+            className="breadcrumb-item active breadcrumb-page-link-style"
+            aria-current="page"
+          >
+            {lastPathItem}
+          </li>
         </ol>
       </nav>
 
@@ -165,7 +242,8 @@ function Courses() {
           type="button"
           className="btn modules-buttons-styles student-view-button-style"
         >
-          <FaGlasses className="padding-right-10 fs-2" />Student View
+          <FaGlasses className="padding-right-10 fs-2" />
+          Student View
         </button>
       </div>
 
@@ -175,7 +253,6 @@ function Courses() {
           <CourseNavigation />
         </div>
 
-
         <div className="flex-fill path-element-display">
           <Routes>
             <Route path="/" element={<Navigate to="Home" />} />
@@ -184,7 +261,10 @@ function Courses() {
             <Route path="Piazza" element={<h1>Piazza</h1>} />
             <Route path="Zoom" element={<h1>Zoom</h1>} />
             <Route path="Assignments" element={<Assignments />} />
-            <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
+            <Route
+              path="Assignments/:assignmentId"
+              element={<h1>Assignment Editor</h1>}
+            />
             <Route path="Quizzes" element={<Quizzes />} />
             <Route path="Quizzes/:quizId/Edit" element={<QuizzesEdit />} />
             <Route path="Quizzes/:quizId/Details" element={<QuizDetails />} />
@@ -199,16 +279,16 @@ function Courses() {
             <Route path="Rubrics" element={<h1>Rubrics</h1>} />
             <Route path="Outcomes" element={<h1>Outcomes</h1>} />
             <Route path="Collaborations" element={<h1>Collaborations</h1>} />
-            <Route path="Progress Reports (EAB Navigate)" element={<h1>Progress Reports (EAB Navigate)</h1>} />
+            <Route
+              path="Progress Reports (EAB Navigate)"
+              element={<h1>Progress Reports (EAB Navigate)</h1>}
+            />
             <Route path="Settings" element={<h1>Settings</h1>} />
             <Route path="Grades" element={<h1>Grades</h1>} />
           </Routes>
         </div>
       </div>
-
-
     </div>
-
   );
 }
 export default Courses;
