@@ -174,10 +174,10 @@ export default function EditDetails() {
                 }
                 defaultValue={quiz.quizType}
               >
-                <option value="graded-quiz">Graded Quiz</option>
-                <option value="practice-quiz">Practice Quiz</option>
-                <option value="graded-survey">Graded Survey</option>
-                <option value="ungraded-survey">Ungraded Survey</option>
+                <option value="Graded Quiz">Graded Quiz</option>
+                <option value="Practice Quiz">Practice Quiz</option>
+                <option value="Graded Survey">Graded Survey</option>
+                <option value="Ungraded Survey">Ungraded Survey</option>
               </select>
             </div>
           </div>

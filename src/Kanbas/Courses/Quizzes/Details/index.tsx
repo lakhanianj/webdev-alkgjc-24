@@ -211,7 +211,11 @@ function QuizDetails() {
   );
 }
 
-function formatDate(date: Date) {
+function formatDate(date: Date | undefined | null) {
+  if (!date || date.toString() == "Invalid Date") {
+    return "Date not available"
+  }
+
   const dateString = date.toDateString();
   const hours = date.getHours();
   let timeString;

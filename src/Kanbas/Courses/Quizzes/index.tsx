@@ -23,6 +23,7 @@ import {
   deleteQuestion,
   findQuestionsForQuiz,
 } from "./Edit/QuestionTypes/client";
+import { Dropdown } from 'react-bootstrap';
 
 function Quizzes() {
   const location = useLocation();
@@ -31,32 +32,6 @@ function Quizzes() {
   const quizzes = useSelector(
     (state: KanbasState) => state.quizReducer.quizzes
   );
-  // const [quiz, setQuiz] = useState({
-  //   course: courseId,
-  //   name: "Unnamed Quiz",
-  //   dueDate: "",
-  //   availableDate: "",
-  //   pts: 0,
-  //   numQuestions: 0,
-  //   published: false,
-  //   description: "",
-  //   shuffled: true,
-  //   quizType: "graded-quiz",
-  //   assignmentType: "quizzes",
-  //   timeLimit: 20,
-  //   multipleAttempts: false,
-  //   showCorrectAnswers: true,
-  //   accessCode: "",
-  //   oneQuestionAtATime: true,
-  //   lockdown: false,
-  //   requiredToViewResult: false,
-  //   webcamReq: false,
-  //   lockAfterAnswering: false,
-  //   untilDate: "",
-  //   forWhom: "",
-  // });
-
-  // const [quizzes, setQuizzes] = useState([]);
 
   const handleDeleteQuiz = async (quizId: string) => {
     if (quizId !== "New") {
@@ -86,12 +61,6 @@ function Quizzes() {
     });
   };
 
-  // const quizList = quizzes.filter((quiz: any) => quiz.course === courseId);
-
-  // function getMaxId() {
-  //   return Math.max(...quizList.map((quiz: any) => parseInt(quiz._id)), 0);
-  // }
-
   const [contextMenuState, setContextMenuState] = useState<{
     [key: string]: boolean;
   }>({});
@@ -103,7 +72,11 @@ function Quizzes() {
     }));
   };
 
-  function formatDate(date: Date) {
+  function formatDate(date: Date | undefined | null) {
+    if (!date || date.toString() == "Invalid Date") {
+      return "Date not available"
+    }
+
     const dateString = date.toDateString();
     const hours = date.getHours();
     let timeString;
@@ -289,9 +262,9 @@ function Quizzes() {
                       onClick={() => handlePublishQuiz(quiz)}
                     >
                       {quiz.published ? (
-                        <FaCheckCircle className="publish-icon fs-6 text-success" />
+                        <FaCheckCircle className="publish-icon fs-7 text-success" />
                       ) : (
-                        <FaBan className="fs-6 publish-icon" />
+                        <FaBan className="fs-7 publish-icon" />
                       )}
                     </button>
 
@@ -303,39 +276,30 @@ function Quizzes() {
                         type="button"
                         className="btn modules-publish-button-style"
                       > */}
-                      <FaEllipsisV className="fa fa-ellipsis-v" />
-                      {/* </button> */}
+                      <Dropdown >
+                        <Dropdown.Toggle variant="secondary" id="dropdown-split-basic">
+                          <FaEllipsisV className="ellipses-margin fa fa-ellipsis-v" />
+
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                          <Dropdown.Item eventKey="item1" onClick={() => handlePublishQuiz(quiz)}>
+                            {quiz.published ? "Unpublish" : "Publish"}
+                          </Dropdown.Item>
+                          <Dropdown.Item eventKey="item2" onClick={() => {
+                            dispatch(setQuiz(quiz));
+                          }}>
+                            <Link to={`${location.pathname}/${quiz._id}/Details`}>
+                              Edit
+                            </Link>
+                          </Dropdown.Item>
+                          <Dropdown.Item eventKey="item3" onClick={() => handleDeleteQuiz(quiz._id)}>
+                            Delete
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
                     </button>
                   </span>
-                  {contextMenuState[quiz._id] && (
-                    <div className="float-end">
-                      <br></br>
-                      <div className="button-group">
-                        <button
-                          className="btn rounded green-button modules-module-button-style"
-                          onClick={() => handlePublishQuiz(quiz)}
-                        >
-                          {quiz.published ? "Unpublish" : "Publish"}
-                        </button>
-                        <Link to={`${location.pathname}/${quiz._id}/Edit`}>
-                          <button
-                            className="btn rounded blue-button modules-module-button-style"
-                            onClick={() => {
-                              dispatch(setQuiz(quiz));
-                            }}
-                          >
-                            Edit
-                          </button>
-                        </Link>
-                        <button
-                          onClick={() => handleDeleteQuiz(quiz._id)}
-                          className="btn rounded modules-module-button-style"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  )}
                 </li>
               ))}
             </ul>
