@@ -1,59 +1,73 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./index.css";
 import { FaEllipsisV, FaPencilAlt, FaCheckCircle, FaBan } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { setQuiz, updateQuiz } from "../reducer";
+import { setQuiz, updateQuiz as updateQuizRedux } from "../reducer";
 import { KanbasState } from "../../../store";
-import { findQuizById } from "../client";
+import { findQuizById, updateQuiz } from "../client";
 
 function QuizDetails() {
-//   const location = useLocation();
+  //   const location = useLocation();
   const { courseId, quizId } = useParams();
   const dispatch = useDispatch();
-  const quiz = useSelector(
-      (state: KanbasState) => state.quizReducer.quiz
-    );
+  const quiz = useSelector((state: KanbasState) => state.quizReducer.quiz);
+  const [isPublished, setIsPublished] = useState(quiz.published);
 
-//   const path = useLocation();
-//   const pathSplit = path.pathname.split("/");
-//   const lastPathItem = decodeURI(pathSplit[pathSplit.length - 1]);
-//   const secondLastPathItem = decodeURI(pathSplit[pathSplit.length - 2]);
+  //   const path = useLocation();
+  //   const pathSplit = path.pathname.split("/");
+  //   const lastPathItem = decodeURI(pathSplit[pathSplit.length - 1]);
+  //   const secondLastPathItem = decodeURI(pathSplit[pathSplit.length - 2]);
 
   // const quizList = quizzes.filter(
   //     (quiz) => quiz.course === courseId && quiz._id === quizId
   // );
 
-//   const [quiz, setQuiz] = useState({
-//     _id: "",
-//     course: courseId,
-//     name: "Unnamed Quiz",
-//     dueDate: "",
-//     availableDate: "",
-//     pts: 0,
-//     numQuestions: 0,
-//     published: false,
-//     description: "",
-//     shuffled: true,
-//     quizType: "graded-quiz",
-//     assignmentType: "quizzes",
-//     timeLimit: 20,
-//     multipleAttempts: false,
-//     viewResponses: "Always",
-//     showCorrectAnswers: true,
-//     accessCode: "",
-//     oneQuestionAtATime: true,
-//     lockdown: false,
-//     requiredToViewResult: false,
-//     webcamReq: false,
-//     lockAfterAnswering: false,
-//     untilDate: "",
-//     forWhom: "",
-//   });
+  //   const [quiz, setQuiz] = useState({
+  //     _id: "",
+  //     course: courseId,
+  //     name: "Unnamed Quiz",
+  //     dueDate: "",
+  //     availableDate: "",
+  //     pts: 0,
+  //     numQuestions: 0,
+  //     published: false,
+  //     description: "",
+  //     shuffled: true,
+  //     quizType: "graded-quiz",
+  //     assignmentType: "quizzes",
+  //     timeLimit: 20,
+  //     multipleAttempts: false,
+  //     viewResponses: "Always",
+  //     showCorrectAnswers: true,
+  //     accessCode: "",
+  //     oneQuestionAtATime: true,
+  //     lockdown: false,
+  //     requiredToViewResult: false,
+  //     webcamReq: false,
+  //     lockAfterAnswering: false,
+  //     untilDate: "",
+  //     forWhom: "",
+  //   });
 
   const fetchQuiz = async () => {
     const quiz = await findQuizById(quizId);
     dispatch(setQuiz(quiz));
+  };
+
+  const handlePublishQuiz = async (quiz: any) => {
+    setIsPublished(!quiz.published);
+    updateQuiz({
+      ...quiz,
+      published: !quiz.published,
+    }).then((status) => {
+      dispatch(
+        updateQuizRedux({
+          ...quiz,
+          published: !quiz.published,
+        })
+      );
+    });
   };
 
   useEffect(() => {
@@ -62,61 +76,60 @@ function QuizDetails() {
 
   // const quiz = (quizList[0]);
 
-    return (
-        <div className="margin-left-quiz">
-            {/* buttons */}
-            <div className="float-right">
-                {/* <button type="button" className="btn modules-publish-button-style">
+  return (
+    <div className="margin-left-quiz">
+      {/* buttons */}
+      <div className="float-right">
+        {/* <button type="button" className="btn modules-publish-button-style">
 
                     <FaRegCheckCircle
                         className="modules-publish-button-icon-style fs-5"
                     />
                     Publish All
                 </button> */}
+{/* 
+        <button
+          className="transparent-button"
+          onClick={() => handlePublishQuiz(quiz)}
+        >
+          {quiz.published ? (
+            <FaCheckCircle className="publish-icon fs-6 text-success" />
+          ) : (
+            <FaBan className="fs-6 publish-icon" />
+          )}
+        </button> */}
 
+        <button
+          type="button"
+          className="btn modules-publish-button-style"
+          onClick={() => handlePublishQuiz(quiz)}
+        >
+          {isPublished ? (
+            <>
+              <FaCheckCircle className="publish-icon fs-6 text-success" />
+              &nbsp; Published
+            </>
+          ) : (
+            <>
+              <FaBan className="fs-6 publish-icon" />
+              &nbsp; Unpublished
+            </>
+          )}
+        </button>
 
+        <Link
+          to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Preview`}
+          className="btn modules-publish-button-style"
+        >
+          Preview
+        </Link>
 
-                <button
-                    type="button" className="btn modules-publish-button-style"
-                    onClick={() =>
-                        dispatch(
-                            updateQuiz({
-                                ...quiz,
-                                published: !quiz.published,
-                            })
-                        )
-                        
-                    }>
-                    {quiz.published ? (
-                        <>
-                            <FaCheckCircle className="publish-icon fs-6 text-success" />
-                            &nbsp;
-                            Published
-                        </>
-                    ) : (
-                        <>
-                            <FaBan className="fs-6 publish-icon" />
-                            &nbsp;
-                            Unpublished
-                        </>
-                    )}
-                </button>
-
-                <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Preview`}
-                    className="btn modules-publish-button-style">
-                    Preview
-                </Link>
-
-                <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Edit`}>
-                    <button type="button" className="btn modules-publish-button-style">
-                        <FaPencilAlt
-                            className="modules-publish-button-icon-style fs-5"
-                        />
-                        Edit
-                    </button>
-                </Link>
-
-
+        <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Edit`}>
+          <button type="button" className="btn modules-publish-button-style">
+            <FaPencilAlt className="modules-publish-button-icon-style fs-5" />
+            Edit
+          </button>
+        </Link>
 
         <button type="button" className="btn modules-publish-button-style">
           <FaEllipsisV className="fa fa-ellipsis-v" />
