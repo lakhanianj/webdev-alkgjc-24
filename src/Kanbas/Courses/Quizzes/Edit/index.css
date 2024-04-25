@@ -1,0 +1,46 @@
+.wd-quiz-text-icons {
+    color: rgb(193, 10, 10);
+}
+
+.wd-quiz-tabs:hover {
+    color: black;
+}
+
+.wd-quiz-tabs-active {
+    color: black;
+}
+
+.wd-quiz-textarea {
+    height: 100px;
+}
+
+.wd-quiz-options {
+    font-weight: bold;
+}
+
+.margin-10 {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.question-box {
+    border-style: ridge;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+.question {
+    border-bottom: 1px solid #000;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.question:last-child {
+    border-bottom: none; /* Remove the border from the last question box */
+}
+
+.bigger {
+    font-size: 23px;
+    padding-right: 5px;
+}

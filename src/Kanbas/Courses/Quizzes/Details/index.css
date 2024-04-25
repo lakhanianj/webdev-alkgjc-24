@@ -1,0 +1,16 @@
+.quiz-details-titles {
+    font-weight: bold;
+    text-align: right;
+ }
+
+ .margin-left-quiz {
+    margin-left: 100px;
+ }
+
+ .remove-bullets {
+    list-style-type: none; 
+ }
+
+ .text-bold {
+    font-weight: bold;
+ }

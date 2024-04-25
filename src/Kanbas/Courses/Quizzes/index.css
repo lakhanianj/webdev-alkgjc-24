@@ -1,0 +1,59 @@
+.vertical-align-center {
+    align-items: center;
+  }
+  
+  .big-text {
+    font-size: 20px;
+  }
+  
+  .sub-text {
+    font-size: 14px;
+  }
+  
+  .left-margin {
+    margin-left: 20px;
+  }
+  
+  .left-margin-smaller {
+    margin-left: 10px;
+  }
+  
+  .lrmargin {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .tpmargin {
+    margin-top: 10px;
+  }
+  
+  .bold-text {
+    font-weight: bold;
+  }
+  
+  .small-bold-quiz-text {
+    font-size: 11.5px;
+    padding-left: 25px;
+    font-weight: bold;
+  }
+  
+  .small-text {
+    font-size: 11.5px;
+  }
+  
+  .publish-icon {
+    font-size: 20px;
+  }
+  
+  .transparent-button {
+    background-color: transparent;
+    border: none;
+  }
+  
+  .green-button{
+    background-color: green !important;
+  }
+  
+  .blue-button{
+    background-color: blue !important;
+  }

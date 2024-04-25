@@ -9,8 +9,12 @@ import CourseNavigation from "./Navigation";
 import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
+import Quizzes from "./Quizzes";
 import { FaChevronDown, FaTachometerAlt, FaHome, FaBook, FaDesktop, FaInbox, FaRegArrowAltCircleRight, FaRegCalendarAlt, FaRegClock, FaRegQuestionCircle, FaRegUserCircle, FaRegCheckSquare, FaPeopleArrows, FaRegStickyNote, FaAddressBook, FaBullhorn, FaBullseye, FaCircleNotch, FaComments, FaFileAlt, FaFolder, FaPlug, FaRegCircle, FaRocket, FaEye, FaGlasses } from "react-icons/fa";
 import "bootstrap/js/src/collapse.js";
+import QuizDetails from "./Quizzes/Details";
+import QuizzesEdit from "./Quizzes/Edit";
+import QuizPreview from "./Quizzes/Preview";
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -179,6 +183,12 @@ function Courses() {
             <Route path="Modules" element={<Modules />} />
             <Route path="Piazza" element={<h1>Piazza</h1>} />
             <Route path="Zoom" element={<h1>Zoom</h1>} />
+            <Route path="Assignments" element={<Assignments />} />
+            <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
+            <Route path="Quizzes" element={<Quizzes />} />
+            <Route path="Quizzes/:quizId/Edit" element={<QuizzesEdit />} />
+            <Route path="Quizzes/:quizId/Details" element={<QuizDetails />} />
+            <Route path="Quizzes/:quizId/Preview" element={<QuizPreview />} />
             <Route path="Grades" element={<h1>Grades</h1>} />
             <Route path="People" element={<h1>People</h1>} />
             <Route path="Panopto Video" element={<h1>Panopto Video</h1>} />
@@ -191,8 +201,6 @@ function Courses() {
             <Route path="Collaborations" element={<h1>Collaborations</h1>} />
             <Route path="Progress Reports (EAB Navigate)" element={<h1>Progress Reports (EAB Navigate)</h1>} />
             <Route path="Settings" element={<h1>Settings</h1>} />
-            <Route path="Assignments" element={<Assignments />} />
-            <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
             <Route path="Grades" element={<h1>Grades</h1>} />
           </Routes>
         </div>

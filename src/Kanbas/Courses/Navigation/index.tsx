@@ -8,10 +8,11 @@ const API_BASE = process.env.REACT_APP_API_BASE;
 axios.defaults.withCredentials = true;
 
 function CourseNavigation() {
-  const links = ["Home", "Modules", "Piazza", "Zoom", "Grades",
+  const links = ["Home", "Modules", "Piazza", "Zoom",  
+    "Assignments", "Quizzes", "Grades",
     "People", "Panopto Video", "Discussions", "Announcements",
     "Pages", "Files", "Rubrics", "Outcomes", "Collaborations",
-    "Progress Reports (EAB Navigate)", "Settings", "Assignments"];
+    "Progress Reports (EAB Navigate)", "Settings"];
   const { pathname } = useLocation();
   const { courseId } = useParams();
   const COURSES_API = `${API_BASE}/api/courses`;
