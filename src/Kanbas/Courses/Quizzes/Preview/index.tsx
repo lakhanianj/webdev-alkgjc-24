@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 import {
   FaCaretLeft,
@@ -10,38 +10,60 @@ import {
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { KanbasState } from "../../../store";
+import { findQuizById } from "../client";
+import { setQuiz } from "../reducer";
+import { findQuestionsForQuiz } from "../Edit/QuestionTypes/client";
+import { setQuestions } from "../Edit/QuestionTypes/reducer";
 
 function QuizPreview() {
-  const [date, setDate] = useState(new Date());
+  const [date] = useState(new Date());
 
   const { courseId, quizId } = useParams();
 
   const path = useLocation();
   const pathSplit = path.pathname.split("/");
-  const lastPathItem = decodeURI(pathSplit[pathSplit.length - 1]);
-  const secondLastPathItem = decodeURI(pathSplit[pathSplit.length - 2]);
+  // const lastPathItem = decodeURI(pathSplit[pathSplit.length - 1]);
+  // const secondLastPathItem = decodeURI(pathSplit[pathSplit.length - 2]);
 
   const dispatch = useDispatch();
 
-  const quizzes = useSelector(
-    (state: KanbasState) => state.quizReducer.quizzes
+  const quiz = useSelector(
+    (state: KanbasState) => state.quizReducer.quiz
   );
 
-  const quizList = quizzes.filter(
-    (quiz) => quiz.course === courseId && quiz._id === quizId
-  );
+  const fetchQuiz = async () => {
+    const quiz = await findQuizById(quizId);
+    dispatch(setQuiz(quiz));
+  };
 
-  const quiz = quizList[0];
+  useEffect(() => {
+    fetchQuiz();
+  }, []);
 
-  const questionsAll = useSelector(
+
+  // const quizList = quizzes.filter(
+  //   (quiz) => quiz.course === courseId && quiz._id === quizId
+  // );
+
+  // const quiz = quizList[0];
+
+  const questions = useSelector(
     (state: KanbasState) => state.questionReducer.questions
   );
 
-  const questionList = questionsAll.filter(
-    (question) => question.course === courseId && question.quiz === quiz._id
-  );
+  // const questionList = questionsAll.filter(
+  //   (question) => question.course === courseId && question.quiz === quiz._id
+  // );
 
-  const questionCount = questionList.length;
+  const fetchQuestions = async () => {
+    if (quizId !== "New") {
+      const questions = await findQuestionsForQuiz(quizId ?? "");
+      dispatch(setQuestions(questions));
+    }
+  };
+
+
+  const questionCount = questions.length;
 
   // let questionNumber = 0
   const [questionNumber, setQuestionNumber] = useState(0);
@@ -50,32 +72,32 @@ function QuizPreview() {
   // console.log(questionCount)
 
   const [currentQuestion, setCurrentQuestion] = useState(
-    questionList[questionNumber]
+    questions[questionNumber]
   );
 
   function handleNext() {
     if (questionNumber < questionCount - 1) {
       setQuestionNumber(questionNumber + 1);
-      setCurrentQuestion(questionList[questionNumber]);
+      setCurrentQuestion(questions[questionNumber]);
     } else {
       setQuestionNumber(questionCount - 1);
-      setCurrentQuestion(questionList[questionNumber]);
+      setCurrentQuestion(questions[questionNumber]);
     }
   }
 
   function handleBack() {
     if (questionNumber > 0) {
       setQuestionNumber(questionNumber - 1);
-      setCurrentQuestion(questionList[questionNumber]);
+      setCurrentQuestion(questions[questionNumber]);
     } else {
       setQuestionNumber(0);
-      setCurrentQuestion(questionList[questionNumber]);
+      setCurrentQuestion(questions[questionNumber]);
     }
   }
 
   function handleQuestionClick(question: any) {
     setQuestionNumber(question.questionNo - 1);
-    setCurrentQuestion(questionList[questionNumber]);
+    setCurrentQuestion(questions[questionNumber]);
   }
 
   // console.log(questions)
@@ -231,7 +253,7 @@ function QuizPreview() {
       <br />
       <br />
       <Link
-        to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz.id}/Edit`}
+        to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Edit`}
         className="btn modules-publish-button-style"
         style={{ width: "100%", textAlign: "left" }}
       >
@@ -243,7 +265,7 @@ function QuizPreview() {
       <br />
       <h4>Questions</h4>
 
-      {questionList.map((question) => (
+      {questions.map((question) => (
         <>
           <span onClick={() => handleQuestionClick(question)}>
             {" "}
