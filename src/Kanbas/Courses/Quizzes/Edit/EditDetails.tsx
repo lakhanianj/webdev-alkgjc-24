@@ -291,6 +291,7 @@ export default function EditDetails() {
                     className="form-control"
                     id="due-form"
                     defaultValue={quiz.dueDate}
+                    placeholder="YYYY/MM/DD"
                     onChange={(e) =>
                       dispatch(setQuiz({ ...quiz, dueDate: e.target.value }))
                     }
@@ -304,6 +305,7 @@ export default function EditDetails() {
                         type="text"
                         className="form-control"
                         id="due-form"
+                        placeholder="YYYY/MM/DD"
                         defaultValue={quiz.availableDate}
                         onChange={(e) =>
                           dispatch(
@@ -320,6 +322,7 @@ export default function EditDetails() {
                         type="text"
                         className="form-control"
                         defaultValue={quiz.untilDate}
+                        placeholder="YYYY/MM/DD"
                         onChange={(e) =>
                           dispatch(
                             setQuiz({ ...quiz, untilDate: e.target.value })
