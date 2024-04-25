@@ -56,7 +56,6 @@ function QuizDetails() {
   };
 
   const handlePublishQuiz = async (quiz: any) => {
-    setIsPublished(!quiz.published);
     updateQuiz({
       ...quiz,
       published: !quiz.published,
@@ -87,7 +86,7 @@ function QuizDetails() {
                     />
                     Publish All
                 </button> */}
-{/* 
+        {/* 
         <button
           className="transparent-button"
           onClick={() => handlePublishQuiz(quiz)}
@@ -102,7 +101,10 @@ function QuizDetails() {
         <button
           type="button"
           className="btn modules-publish-button-style"
-          onClick={() => handlePublishQuiz(quiz)}
+          onClick={() => {
+            handlePublishQuiz(quiz);
+            setIsPublished(!isPublished);
+          }}
         >
           {isPublished ? (
             <>
