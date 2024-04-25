@@ -55,15 +55,23 @@ function QuizzesEdit() {
         pts: total,
         numQuestions: questionCount,
         published: publish,
-      }).then((quiz) => {
+      }).then((newQuiz) => {
         dispatch(
           addQuiz({
-            ...quiz,
+            ...newQuiz,
             pts: total,
             numQuestions: questionCount,
             published: publish,
           })
         );
+        dispatch(setQuiz(newQuiz));
+        questions.forEach(async (q: any) => {
+          if (q._id) {
+            await updateQuestion({ ...q, quiz: newQuiz._id });
+          } else {
+            await createQuestion({ ...q, quiz: newQuiz._id });
+          }
+        });
       });
     } else {
       updateQuiz({
@@ -71,24 +79,25 @@ function QuizzesEdit() {
         pts: total,
         numQuestions: questionCount,
         published: publish,
-      }).then((quiz) => {
+      }).then((newQuiz) => {
         dispatch(
           updateQuizRedux({
-            ...quiz,
+            ...newQuiz,
             pts: total,
             numQuestions: questionCount,
             published: publish,
           })
         );
+        dispatch(setQuiz(newQuiz));
+        questions.forEach(async (q: any) => {
+          if (q._id) {
+            await updateQuestion({ ...q, quiz: newQuiz._id });
+          } else {
+            await createQuestion({ ...q, quiz: newQuiz._id });
+          }
+        });
       });
     }
-    questions.forEach(async (q: any) => {
-      if (q._id) {
-        await updateQuestion(q);
-      } else {
-        await createQuestion(q);
-      }
-    });
   };
 
   useEffect(() => {

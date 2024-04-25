@@ -1,8 +1,8 @@
-import { FaBan, FaCaretDown, FaCheckCircle, FaEllipsisV, FaPencilAlt, FaTrash } from "react-icons/fa";
+import { FaBan, FaCaretDown, FaCheckCircle, FaEllipsisV } from "react-icons/fa";
 import { BsRocketTakeoff } from "react-icons/bs";
 import { Link, useLocation, useParams } from "react-router-dom";
 import "./index.css"; // feel free to use the CSS from previous assignments
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import { deleteQuiz, findQuizzesForCourse, updateQuiz } from "./client";
@@ -14,7 +14,15 @@ import {
   updateQuiz as updateQuizRedux,
 } from "./reducer";
 import { KanbasState } from "../../store";
-import { setQuestion, setQuestions } from "./Edit/QuestionTypes/reducer";
+import {
+  removeQuestion,
+  setQuestion,
+  setQuestions,
+} from "./Edit/QuestionTypes/reducer";
+import {
+  deleteQuestion,
+  findQuestionsForQuiz,
+} from "./Edit/QuestionTypes/client";
 
 function Quizzes() {
   const location = useLocation();
@@ -50,10 +58,18 @@ function Quizzes() {
 
   // const [quizzes, setQuizzes] = useState([]);
 
-  const handleDeleteQuiz = (quizId: string) => {
-    deleteQuiz(quizId).then((status) => {
-      dispatch(removeQuiz(quizId));
-    });
+  const handleDeleteQuiz = async (quizId: string) => {
+    if (quizId !== "New") {
+      const questions = await findQuestionsForQuiz(quizId ?? "");
+      questions.forEach((q: any) => {
+        deleteQuestion(q._id).then((status) => {
+          dispatch(removeQuestion(q._id));
+        });
+      });
+      deleteQuiz(quizId).then((status) => {
+        dispatch(removeQuiz(quizId));
+      });
+    }
   };
 
   const handlePublishQuiz = async (quiz: any) => {
@@ -287,7 +303,7 @@ function Quizzes() {
                         type="button"
                         className="btn modules-publish-button-style"
                       > */}
-                        <FaEllipsisV className="fa fa-ellipsis-v" />
+                      <FaEllipsisV className="fa fa-ellipsis-v" />
                       {/* </button> */}
                     </button>
                   </span>

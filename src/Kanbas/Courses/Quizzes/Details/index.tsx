@@ -1,11 +1,11 @@
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./index.css";
-import { FaRegCheckCircle, FaCaretDown, FaEllipsisV, FaPencilAlt, FaCheckCircle, FaBan } from "react-icons/fa";
-import { quizzes } from "../../../Database";
-import { useState } from "react";
+import { FaEllipsisV, FaPencilAlt, FaCheckCircle, FaBan } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { removeQuiz, setQuiz, updateQuiz } from "../reducer";
+import { setQuiz, updateQuiz } from "../reducer";
 import { KanbasState } from "../../../store";
+import { findQuizById } from "../client";
 
 function QuizDetails() {
 //   const location = useLocation();

@@ -1,3 +1,4 @@
+import React from "react";
 import { FaEdit, FaPlus, FaSearch, FaTrash } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import "./index.css";
@@ -16,7 +17,11 @@ import {
   setQuestions,
   updateQuestion,
 } from "./QuestionTypes/reducer";
-import { findQuestionById, findQuestionsForQuiz } from "./QuestionTypes/client";
+import {
+  deleteQuestion,
+  findQuestionById,
+  findQuestionsForQuiz,
+} from "./QuestionTypes/client";
 
 export default function EditQuestions() {
   const { courseId, quizId } = useParams();
@@ -65,7 +70,12 @@ export default function EditQuestions() {
     } else {
       dispatch(addQuestion(question));
     }
-    
+  };
+
+  const handleDeleteQuestion = (qid: string) => {
+    deleteQuestion(qid).then((status) => {
+      dispatch(removeQuestion(qid));
+    });
   };
 
   useEffect(() => {
@@ -87,7 +97,6 @@ export default function EditQuestions() {
             handleEditQuestion({
               title: "Untitled Question",
               course: courseId,
-              quiz: quizId,
               type: "mc",
               pts: 0,
               question: "",
@@ -188,7 +197,7 @@ export default function EditQuestions() {
                   ></FaEdit>
                   <FaTrash
                     className="bigger text-danger"
-                    onClick={() => dispatch(removeQuestion(question._id))}
+                    onClick={() => handleDeleteQuestion(question._id)}
                   ></FaTrash>
                 </span>
               </div>

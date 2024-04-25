@@ -31,6 +31,8 @@ export const findQuestionsForQuiz = async (quizId: string) => {
         return [];
     }
     const response = await axios.get(`${QUESTIONS_API}`);
-    const questions = response.data.filter((question: any) => question.quiz === quizId)
+    const questions = response.data.filter((question: any) => {
+        return question.quiz === quizId;
+    })
     return questions;
 };

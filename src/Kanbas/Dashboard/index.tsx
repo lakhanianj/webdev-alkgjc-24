@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./index.css";
-import { FaEllipsisV, FaPencilAlt, FaRegFileAlt, FaTrash } from "react-icons/fa";
+import { FaPencilAlt, FaRegFileAlt, FaTrash } from "react-icons/fa";
 import { RxDotsVertical } from "react-icons/rx";
 
 
