@@ -109,7 +109,7 @@ function Quizzes() {
     assignmentType: string;
     timeLimit: number;
     multipleAttempts: boolean;
-    showCorrectAnswers: boolean;
+    showCorrectAnswers: string;
     accessCode: string;
     oneQuestionAtATime: boolean;
     webcamReq: boolean;
@@ -145,7 +145,7 @@ function Quizzes() {
         assignmentType: "quizzes",
         timeLimit: 20,
         multipleAttempts: false,
-        showCorrectAnswers: true,
+        showCorrectAnswers: "",
         accessCode: "",
         oneQuestionAtATime: true,
         lockdown: false,

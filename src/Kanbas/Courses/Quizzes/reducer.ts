@@ -17,7 +17,7 @@ const initialState = {
         assignmentType: "quizzes",
         timeLimit: 20,
         multipleAttempts: false,
-        showCorrectAnswers: true,
+        showCorrectAnswers: "",
         accessCode: "",
         oneQuestionAtATime: true,
         webcamReq: false,

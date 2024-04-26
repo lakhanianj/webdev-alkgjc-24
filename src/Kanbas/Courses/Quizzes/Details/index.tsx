@@ -39,7 +39,7 @@ function QuizDetails() {
   //     timeLimit: 20,
   //     multipleAttempts: false,
   //     viewResponses: "Always",
-  //     showCorrectAnswers: true,
+  //     showCorrectAnswers: "",
   //     accessCode: "",
   //     oneQuestionAtATime: true,
   //     lockdown: false,
@@ -68,6 +68,10 @@ function QuizDetails() {
       );
     });
   };
+
+  const onlyDate = (d: String) => {
+    return d.substring(0, d.indexOf('at'));
+  }
 
   useEffect(() => {
     fetchQuiz();
@@ -174,7 +178,7 @@ function QuizDetails() {
             </li>
             <li>{quiz.multipleAttempts ? "Yes" : "No"}</li>
             <li>{quiz.viewResponses ? "Always" : "Never"}</li>
-            <li>{quiz.showCorrectAnswers ? "Immediately" : "Never"}</li>
+            <li>{quiz.showCorrectAnswers ? onlyDate(formatDate(new Date(quiz.showCorrectAnswers))) : "No"}</li>
             <li>{quiz.oneQuestionAtATime ? "Yes" : "No"}</li>
             <li>{quiz.lockdown ? "Yes" : "No"}</li>
             <li>{quiz.requiredToViewResult ? "Yes" : "No"}</li>
@@ -212,7 +216,7 @@ function QuizDetails() {
 }
 
 function formatDate(date: Date | undefined | null) {
-  if (!date || date.toString() == "Invalid Date") {
+  if (!date || date.toString() === "Invalid Date") {
     return "Date not available"
   }
 

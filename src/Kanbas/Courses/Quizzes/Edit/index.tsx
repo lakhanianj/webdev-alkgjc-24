@@ -4,7 +4,7 @@ import "./index.css";
 import "../../../Courses/index.css";
 import EditDetails from "./EditDetails";
 import EditQuestions from "./EditQuestions";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { createQuiz, findQuizById, updateQuiz } from "../client";
 import { useDispatch, useSelector } from "react-redux";
 import { addQuiz, setQuiz, updateQuiz as updateQuizRedux } from "../reducer";
@@ -21,6 +21,7 @@ function QuizzesEdit() {
   // When activeTab is false, Questions is the active tab
   const [activeTab, setActiveTab] = useState(true);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { courseId, quizId } = useParams();
   const quiz = useSelector((state: KanbasState) => state.quizReducer.quiz);
   const questions = useSelector(
@@ -41,7 +42,7 @@ function QuizzesEdit() {
     }
   };
 
-  const handleSave = (publish: boolean) => {
+  const handleSave = (publish: boolean, toDetails: boolean) => {
     let total: number = 0;
     const questionCount = questions.length;
     if (questionCount > 0) {
@@ -72,6 +73,11 @@ function QuizzesEdit() {
             await createQuestion({ ...q, quiz: newQuiz._id });
           }
         });
+        if (toDetails) {
+          navigate(
+            `/Kanbas/Courses/${courseId}/Quizzes/${newQuiz._id}/Details`
+          );
+        }
       });
     } else {
       updateQuiz({
@@ -82,20 +88,23 @@ function QuizzesEdit() {
       }).then((newQuiz) => {
         dispatch(
           updateQuizRedux({
-            ...newQuiz,
+            ...quiz,
             pts: total,
             numQuestions: questionCount,
             published: publish,
           })
         );
-        dispatch(setQuiz(newQuiz));
+        dispatch(setQuiz(quiz));
         questions.forEach(async (q: any) => {
           if (q._id) {
-            await updateQuestion({ ...q, quiz: newQuiz._id });
+            await updateQuestion({ ...q, quiz: quiz._id });
           } else {
-            await createQuestion({ ...q, quiz: newQuiz._id });
+            await createQuestion({ ...q, quiz: quiz._id });
           }
         });
+        if (toDetails) {
+          navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}/Details`);
+        }
       });
     }
   };
@@ -182,21 +191,20 @@ function QuizzesEdit() {
                   type="button"
                   className="btn modules-buttons-styles mx-3"
                   onClick={() => {
-                    handleSave(true);
+                    handleSave(true, false);
                   }}
                 >
                   Save & Publish
                 </button>
               </Link>
-              <Link to={`/Kanbas/Courses/${courseId}/Quizzes`}>
-                <button
-                  type="button"
-                  className="btn modules-module-button-style"
-                  onClick={() => handleSave(quiz.published)}
-                >
-                  Save
-                </button>
-              </Link>
+
+              <button
+                type="button"
+                className="btn modules-module-button-style"
+                onClick={() => handleSave(quiz.published, true)}
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>

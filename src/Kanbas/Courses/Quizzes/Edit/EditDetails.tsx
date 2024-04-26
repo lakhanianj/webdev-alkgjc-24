@@ -1,15 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  FaBold,
-  FaItalic,
-  FaUnderline,
-  FaFont,
-  FaHighlighter,
-  FaSuperscript,
   FaEllipsisV,
   FaKeyboard,
   FaCode,
   FaExpandAlt,
+  FaCheckCircle,
+  FaBan,
 } from "react-icons/fa";
 import { useParams } from "react-router";
 import { findQuizById } from "../client";
@@ -20,6 +16,10 @@ import { setQuiz } from "../reducer";
 export default function EditDetails() {
   const dispatch = useDispatch();
   const quiz = useSelector((state: KanbasState) => state.quizReducer.quiz);
+  const [showAnswers, setShowAnswers] = useState<boolean>(
+    !!quiz.showCorrectAnswers
+  );
+  const [isPublished, setIsPublished] = useState(quiz.published);
 
   const { quizId } = useParams();
 
@@ -29,6 +29,15 @@ export default function EditDetails() {
     }
   };
 
+  const handlePublishQuiz = async (quiz: any) => {
+    dispatch(
+      setQuiz({
+        ...quiz,
+        published: !quiz.published,
+      })
+    );
+  };
+
   useEffect(() => {
     fetchQuiz();
   }, []);
@@ -36,7 +45,9 @@ export default function EditDetails() {
   return (
     <div>
       <div className="mb-3">
+        <label htmlFor="quiz-title">Title</label>
         <input
+          id="quiz-title"
           className="form-control"
           defaultValue={quiz.name ?? `Unnamed Quiz`}
           onChange={(e) => dispatch(setQuiz({ ...quiz, name: e.target.value }))}
@@ -45,91 +56,6 @@ export default function EditDetails() {
       <div className="pb-5">
         <p>Quiz Instructions:</p>
         <div className="ms-2">
-          <div className="d-flex">
-            <button type="button" className="btn">
-              Edit
-            </button>
-            <button type="button" className="btn">
-              View
-            </button>
-            <button type="button" className="btn">
-              Insert
-            </button>
-            <button type="button" className="btn">
-              Format
-            </button>
-            <button type="button" className="btn">
-              Tools
-            </button>
-            <button type="button" className="btn">
-              Table
-            </button>
-          </div>
-          <div className="d-flex">
-            <div className="dropdown">
-              <button
-                className="btn dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                12pt
-              </button>
-            </div>
-            <div className="dropdown">
-              <button
-                className="btn dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Paragraph
-              </button>
-            </div>
-            <p>|</p>
-            <button type="button" className="btn">
-              <FaBold />
-            </button>
-            <button type="button" className="btn">
-              <FaItalic />
-            </button>
-            <button type="button" className="btn">
-              <FaUnderline />
-            </button>
-            <div className="dropdown">
-              <button
-                className="btn dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <FaFont />
-              </button>
-            </div>
-            <div className="dropdown">
-              <button
-                className="btn dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <FaHighlighter />
-              </button>
-            </div>
-            <div className="dropdown">
-              <button
-                className="btn dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <FaSuperscript />
-              </button>
-            </div>
-            <button type="button" className="btn">
-              <FaEllipsisV />
-            </button>
-          </div>
           <textarea
             className="form-control wd-quiz-textarea"
             defaultValue={quiz.instructions ?? ""}
@@ -271,7 +197,134 @@ export default function EditDetails() {
                 />
                 <label htmlFor="multi-attempt">Allow Multiple Attempts</label>
               </div>
+              <div className="d-flex my-3">
+                <div className="me-5">
+                  <input
+                    className="me-2"
+                    type="checkbox"
+                    value="SHOW-ANSWERS"
+                    id="show-answers"
+                    defaultChecked={quiz.showCorrectAnswers !== ""}
+                    onChange={(e) => {
+                      setShowAnswers(!showAnswers);
+                      dispatch(
+                        setQuiz({
+                          ...quiz,
+                          showCorrectAnswers: e.target.value
+                            ? ""
+                            : quiz.showCorrectAnswers,
+                        })
+                      );
+                    }}
+                  />
+                  <label htmlFor="show-answers">Show Correct Answers</label>
+                  <input
+                    className="mx-1"
+                    type="date"
+                    id="set-show-answers"
+                    name="show-answers"
+                    defaultValue={quiz.showCorrectAnswers ?? ""}
+                    onChange={(e) => {
+                      if (showAnswers) {
+                        dispatch(
+                          setQuiz({
+                            ...quiz,
+                            showCorrectAnswers: e.target.value.toString(),
+                          })
+                        );
+                      }
+                    }}
+                    placeholder="Insert date here"
+                  />
+                </div>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="access-code">Access Code</label>
+                <input
+                  id="access-code"
+                  type="text"
+                  className="form-control"
+                  defaultValue={quiz.accessCode}
+                  onChange={(e) =>
+                    dispatch(setQuiz({ ...quiz, accessCode: e.target.value }))
+                  }
+                />
+              </div>
+              <div>
+                <input
+                  className="me-2"
+                  type="checkbox"
+                  value="ONE-AT-A-TIME"
+                  name="one-at-a-time"
+                  id="one-at-a-time"
+                  defaultChecked={quiz.oneQuestionAtATime}
+                  onChange={(e) =>
+                    dispatch(
+                      setQuiz({
+                        ...quiz,
+                        oneQuestionAtATime: !quiz.oneQuestionAtATime,
+                      })
+                    )
+                  }
+                />
+                <label htmlFor="one-at-a-time">One Question at a Time</label>
+              </div>
+              <div>
+                <input
+                  className="me-2"
+                  type="checkbox"
+                  value="WEBCAM"
+                  name="webcam"
+                  id="webcam"
+                  defaultChecked={quiz.webcamReq}
+                  onChange={(e) =>
+                    dispatch(setQuiz({ ...quiz, webcamReq: !quiz.webcamReq }))
+                  }
+                />
+                <label htmlFor="webcam">Webcam Required</label>
+              </div>
+              <div>
+                <input
+                  className="me-2"
+                  type="checkbox"
+                  value="LOCK-QUESTIONS"
+                  name="lock-questions"
+                  id="lock-questions"
+                  defaultChecked={quiz.lockAfterAnswering}
+                  onChange={(e) =>
+                    dispatch(
+                      setQuiz({
+                        ...quiz,
+                        lockAfterAnswering: !quiz.lockAfterAnswering,
+                      })
+                    )
+                  }
+                />
+                <label htmlFor="lock-questions">
+                  Lock Questions After Answering
+                </label>
+              </div>
             </form>
+            <button
+              type="button"
+              className="btn modules-publish-button-style"
+              onClick={() => {
+                handlePublishQuiz(quiz);
+                setIsPublished(!isPublished);
+              }}
+            >
+              {isPublished ? (
+                <>
+                  <FaBan className="fs-6 publish-icon" />
+                  &nbsp; Click to Unpublish
+                </>
+              ) : (
+                <>
+                  <FaCheckCircle className="publish-icon fs-6 text-success" />
+                  &nbsp; Click to Publish
+                </>
+              )}
+            </button>
           </div>
           <div className="d-flex m-5">
             <p className="me-5">Assign</p>
@@ -287,13 +340,15 @@ export default function EditDetails() {
                 <h6 className="mt-3">Due</h6>
                 <div className="input-group">
                   <input
-                    type="text"
+                    type="date"
                     className="form-control"
                     id="due-form"
                     defaultValue={quiz.dueDate}
                     placeholder="YYYY/MM/DD"
                     onChange={(e) =>
-                      dispatch(setQuiz({ ...quiz, dueDate: e.target.value }))
+                      dispatch(
+                        setQuiz({ ...quiz, dueDate: e.target.value.toString() })
+                      )
                     }
                   />
                 </div>
@@ -302,14 +357,17 @@ export default function EditDetails() {
                     <h6>Available from</h6>
                     <div className="input-group me-4">
                       <input
-                        type="text"
+                        type="date"
                         className="form-control"
                         id="due-form"
                         placeholder="YYYY/MM/DD"
                         defaultValue={quiz.availableDate}
                         onChange={(e) =>
                           dispatch(
-                            setQuiz({ ...quiz, availableDate: e.target.value })
+                            setQuiz({
+                              ...quiz,
+                              availableDate: e.target.value.toString(),
+                            })
                           )
                         }
                       />
@@ -319,13 +377,16 @@ export default function EditDetails() {
                     <h6>Until</h6>
                     <div className="input-group">
                       <input
-                        type="text"
+                        type="date"
                         className="form-control"
                         defaultValue={quiz.untilDate}
                         placeholder="YYYY/MM/DD"
                         onChange={(e) =>
                           dispatch(
-                            setQuiz({ ...quiz, untilDate: e.target.value })
+                            setQuiz({
+                              ...quiz,
+                              untilDate: e.target.value.toString(),
+                            })
                           )
                         }
                       />

@@ -84,7 +84,7 @@ export default function MultipleChoiceQuestion() {
             <textarea
               id={index.toString()}
               className="mx-1"
-              defaultValue={choice.value}
+              value={choice.value}
               onChange={(e) => {
                 dispatch(setAnswer({ _id: choice._id, value: e.target.value }));
                 if (choice._id === question.correctAnswer) {

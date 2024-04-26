@@ -118,7 +118,30 @@ export default function EditQuestions() {
           <FaSearch></FaSearch> Find Questions
         </button>
       </div>
-
+      <div>
+        <br />
+        <div className="question-box">
+          {/* Display list of questions here */}
+          {questions.map((question, index) => (
+            <div key={index} className="question">
+              <span className="fw-bold">Question "{question.title}": </span>
+              <span>{question.question}</span>
+              <span className="float-end">
+                <FaEdit
+                  onClick={() => {
+                    handleEditQuestion(question);
+                  }}
+                  className="bigger text-success"
+                ></FaEdit>
+                <FaTrash
+                  className="bigger text-danger"
+                  onClick={() => handleDeleteQuestion(question._id)}
+                ></FaTrash>
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
       {questionEditor ? (
         <div>
           <hr />
@@ -147,11 +170,13 @@ export default function EditQuestions() {
             <div>
               <label htmlFor="pts">pts:</label>
               <input
-                type="text"
+                type="number"
                 id="pts"
                 defaultValue={question.pts}
                 onChange={(e) =>
-                  dispatch(setQuestion({ ...question, pts: e.target.value }))
+                  dispatch(
+                    setQuestion({ ...question, pts: parseInt(e.target.value) })
+                  )
                 }
               />
             </div>
@@ -180,30 +205,7 @@ export default function EditQuestions() {
           </div>
         </div>
       ) : (
-        <div>
-          <br />
-          <div className="question-box">
-            {/* Display list of questions here */}
-            {questions.map((question, index) => (
-              <div key={index} className="question">
-                <span className="fw-bold">Question "{question.title}": </span>
-                <span>{question.question}</span>
-                <span className="float-end">
-                  <FaEdit
-                    onClick={() => {
-                      handleEditQuestion(question);
-                    }}
-                    className="bigger text-success"
-                  ></FaEdit>
-                  <FaTrash
-                    className="bigger text-danger"
-                    onClick={() => handleDeleteQuestion(question._id)}
-                  ></FaTrash>
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <hr />
       )}
     </div>
   );
