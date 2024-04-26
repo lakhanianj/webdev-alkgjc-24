@@ -25,6 +25,7 @@ import {
 } from "./Edit/QuestionTypes/client";
 import { Dropdown } from 'react-bootstrap';
 
+
 function Quizzes() {
   const location = useLocation();
   const { courseId } = useParams();
@@ -278,7 +279,7 @@ function Quizzes() {
                       > */}
                       <Dropdown >
                         <Dropdown.Toggle variant="secondary" id="dropdown-split-basic">
-                          <FaEllipsisV className="ellipses-margin fa fa-ellipsis-v" />
+                          <FaEllipsisV className="ellipses-margin fa fa-ellipsis-v transparent-button" />
 
                         </Dropdown.Toggle>
 
