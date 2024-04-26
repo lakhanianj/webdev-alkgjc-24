@@ -8,47 +8,10 @@ import { KanbasState } from "../../../store";
 import { findQuizById, updateQuiz } from "../client";
 
 function QuizDetails() {
-  //   const location = useLocation();
   const { courseId, quizId } = useParams();
   const dispatch = useDispatch();
   const quiz = useSelector((state: KanbasState) => state.quizReducer.quiz);
   const [isPublished, setIsPublished] = useState(quiz.published);
-
-  //   const path = useLocation();
-  //   const pathSplit = path.pathname.split("/");
-  //   const lastPathItem = decodeURI(pathSplit[pathSplit.length - 1]);
-  //   const secondLastPathItem = decodeURI(pathSplit[pathSplit.length - 2]);
-
-  // const quizList = quizzes.filter(
-  //     (quiz) => quiz.course === courseId && quiz._id === quizId
-  // );
-
-  //   const [quiz, setQuiz] = useState({
-  //     _id: "",
-  //     course: courseId,
-  //     name: "Unnamed Quiz",
-  //     dueDate: "",
-  //     availableDate: "",
-  //     pts: 0,
-  //     numQuestions: 0,
-  //     published: false,
-  //     description: "",
-  //     shuffled: true,
-  //     quizType: "graded-quiz",
-  //     assignmentType: "quizzes",
-  //     timeLimit: 20,
-  //     multipleAttempts: false,
-  //     viewResponses: "Always",
-  //     showCorrectAnswers: "",
-  //     accessCode: "",
-  //     oneQuestionAtATime: true,
-  //     lockdown: false,
-  //     requiredToViewResult: false,
-  //     webcamReq: false,
-  //     lockAfterAnswering: false,
-  //     untilDate: "",
-  //     forWhom: "",
-  //   });
 
   const fetchQuiz = async () => {
     const quiz = await findQuizById(quizId);
@@ -76,8 +39,6 @@ function QuizDetails() {
   useEffect(() => {
     fetchQuiz();
   }, []);
-
-  // const quiz = (quizList[0]);
 
   return (
     <div className="margin-left-quiz">
@@ -147,7 +108,7 @@ function QuizDetails() {
 
       <h1>{quiz.name}</h1>
 
-      <div className="d-flex" style={{ minHeight: "100%" }}>
+      <div className="d-flex height-minimum">
         <div>
           <ul className="quiz-details-titles remove-bullets">
             <li>Quiz Type</li>
@@ -158,6 +119,7 @@ function QuizDetails() {
             <li>Multiple Attempts</li>
             <li>View Responses</li>
             <li>Show Correct Answers</li>
+            <li>Access Code</li>
             <li>One Question at a Time</li>
             <li>Require Respondus Lockdown Browser</li>
             <li>Required to View Quiz Results</li>
@@ -179,6 +141,7 @@ function QuizDetails() {
             <li>{quiz.multipleAttempts ? "Yes" : "No"}</li>
             <li>{quiz.viewResponses ? "Always" : "Never"}</li>
             <li>{quiz.showCorrectAnswers ? onlyDate(formatDate(new Date(quiz.showCorrectAnswers))) : "No"}</li>
+            <li>{quiz.accessCode === "" ? "N/A" : quiz.accessCode}</li>
             <li>{quiz.oneQuestionAtATime ? "Yes" : "No"}</li>
             <li>{quiz.lockdown ? "Yes" : "No"}</li>
             <li>{quiz.requiredToViewResult ? "Yes" : "No"}</li>
@@ -190,8 +153,7 @@ function QuizDetails() {
 
       <br />
       <div
-        className="d-flex justify-content-around"
-        style={{ minHeight: "100%" }}
+        className="d-flex justify-content-around height-minimum"
       >
         <div className="text-bold">Due</div>
         <div className="text-bold">For</div>
@@ -202,8 +164,7 @@ function QuizDetails() {
       <hr />
 
       <div
-        className="d-flex justify-content-around"
-        style={{ minHeight: "100%" }}
+        className="d-flex justify-content-around height-minimum"
       >
         <div>{formatDate(new Date(quiz.dueDate))}</div>
         <div>{quiz.forWhom}</div>

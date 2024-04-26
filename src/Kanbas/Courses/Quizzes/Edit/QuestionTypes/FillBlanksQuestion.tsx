@@ -1,11 +1,5 @@
 import React from "react";
 import {
-  FaBold,
-  FaItalic,
-  FaUnderline,
-  FaFont,
-  FaHighlighter,
-  FaSuperscript,
   FaEllipsisV,
   FaKeyboard,
   FaCode,
@@ -88,7 +82,7 @@ export default function FillBlanksQuestion() {
                     }
                   />
                   <FaTrash
-                    className="bigger text-danger ms-3"
+                    className="bigger ms-3"
                     onClick={() => {
                       dispatch(deleteAnswer(answer._id));
                     }}

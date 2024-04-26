@@ -50,10 +50,20 @@
     border: none;
   }
   
-  .green-button{
+  .green-button {
     background-color: green !important;
   }
   
-  .blue-button{
+  .blue-button {
     background-color: blue !important;
+  }
+
+  .transparent-background {
+    background-color: transparent !important;
+  }
+
+  .dropdown-link {
+      font-size: 16px;
+      color: rgb(74, 72, 72);
+      text-decoration: none;
   }

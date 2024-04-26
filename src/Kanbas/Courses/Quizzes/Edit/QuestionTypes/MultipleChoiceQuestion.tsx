@@ -15,36 +15,7 @@ export default function MultipleChoiceQuestion() {
   const question = useSelector(
     (state: KanbasState) => state.questionReducer.question
   );
-
-  //   const [choices, setChoices] = useState(question.choices);
-
-  //   const addChoice = () => {
-  //     setChoices([...choices, { text: "", isCorrect: false }]);
-  //   };
-
-  //   const deleteChoice = (index: number) => {
-  //     const newChoices = [...choices];
-  //     newChoices.splice(index, 1);
-  //     setChoices(newChoices);
-  //   };
-
-  //   const handleChoiceTextChange = (
-  //     index: number,
-  //     event: ChangeEvent<HTMLTextAreaElement>
-  //   ) => {
-  //     const newChoices = [...choices];
-  //     newChoices[index].text = event.target.value;
-  //     setChoices(newChoices);
-  //   };
-
-  //   const handleCorrectChoiceChange = (index: number) => {
-  //     const newChoices = [...choices];
-  //     newChoices.forEach((choice, i) => {
-  //       newChoices[i].isCorrect = i === index;
-  //     });
-  //     setChoices(newChoices);
-  //   };
-
+  
   return (
     <div>
       <div>
@@ -68,7 +39,7 @@ export default function MultipleChoiceQuestion() {
         {question.answers?.map((choice: any, index: number) => (
           <div key={index} className="d-flex align-items-center mb-2">
             <label className="mx-1" htmlFor={index.toString()}>
-              Correct choice?
+              Correct choice? &nbsp; 
             </label>
             <input
               type="radio"
@@ -105,16 +76,16 @@ export default function MultipleChoiceQuestion() {
           </div>
         ))}
         <button
-          type="button"
-          className="btn btn-danger"
-          onClick={() => dispatch(addAnswer())}
-        >
-          Add Choice
-        </button>
+            type="button"
+            onClick={() => {
+              dispatch(addAnswer());
+            }}
+            className="btn btn-link link-icon-style float-end"
+          >
+            + Add Another Answer
+          </button>
       </div>
-      {/* <br />
-      <button className="btn btn-warning">Cancel</button>
-      <button className="mx-2 btn btn-danger">Update Question</button> */}
+      <br/>
     </div>
   );
 }

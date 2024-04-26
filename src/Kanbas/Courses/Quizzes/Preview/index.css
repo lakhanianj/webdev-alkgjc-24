@@ -445,3 +445,12 @@
   .margin-bottom-8 {
     margin-bottom: 8px;
   }
+
+  .fb-box-style {
+    border: 1px solid;
+  }
+
+  .preview-edit-button {
+    width: 100% !important;
+    text-align: left !important; 
+  }

@@ -5,20 +5,11 @@ import { KanbasState } from "../../../../store";
 import { setQuestion } from "./reducer";
 
 export default function TrueFalseQuestion() {
-  // const [choices, setChoices] = useState([{ isCorrect: false }]);
   const dispatch = useDispatch();
 
   const question = useSelector(
     (state: KanbasState) => state.questionReducer.question
   );
-
-  // const handleCorrectChoiceChange = (index: number) => {
-  //     const newChoices = [...choices];
-  //     newChoices.forEach((choice, i) => {
-  //         newChoices[i].isCorrect = i === index;
-  //     });
-  //     setChoices(newChoices);
-  // };
 
   return (
     <div>
@@ -40,7 +31,6 @@ export default function TrueFalseQuestion() {
 
         <br />
         <h5>Answers:</h5>
-        {/* {question.choices.map((choice, index) => ( */}
         <div key={0} className="d-flex align-items-center mb-2">
           <fieldset>
             <div>
@@ -54,7 +44,7 @@ export default function TrueFalseQuestion() {
                 }}
                 defaultChecked={question.correctAnswer}
               />
-              <label htmlFor="True">True</label>
+              <label htmlFor="True">&nbsp; True</label>
             </div>
             <div>
               <input
@@ -67,15 +57,11 @@ export default function TrueFalseQuestion() {
                 }}
                 defaultChecked={!question.correctAnswer}
               />
-              <label htmlFor="False">False</label>
+              <label htmlFor="False">&nbsp; False</label>
             </div>
           </fieldset>
         </div>
-        {/* ))} */}
       </div>
-      {/* <br />
-      <button className="btn btn-warning">Cancel</button>
-      <button className="mx-2 btn btn-danger">Update Question</button> */}
     </div>
   );
 }

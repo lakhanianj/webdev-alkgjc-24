@@ -265,7 +265,7 @@ function Quizzes() {
                       {quiz.published ? (
                         <FaCheckCircle className="publish-icon fs-7 text-success" />
                       ) : (
-                        <FaBan className="fs-7 publish-icon" />
+                        <FaBan className="fs-7 publish-icon" style={{color:"gray"}}/>
                       )}
                     </button>
 
@@ -273,32 +273,29 @@ function Quizzes() {
                       className=" transparent-button left-margin-smaller"
                       onClick={() => toggleContextMenu(quiz._id)}
                     >
-                      {/* <button
-                        type="button"
-                        className="btn modules-publish-button-style"
-                      > */}
-                      <Dropdown >
-                        <Dropdown.Toggle variant="secondary" id="dropdown-split-basic">
-                          <FaEllipsisV className="ellipses-margin fa fa-ellipsis-v transparent-button" />
+                     <Dropdown className="transparent-background">
+                       <Dropdown.Toggle variant="secondary" className="transparent-background" id="dropdown-split-basic">
+                         <FaEllipsisV className="ellipses-margin fa fa-ellipsis-v" style={{color:"black"}}/>
 
-                        </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                          <Dropdown.Item eventKey="item1" onClick={() => handlePublishQuiz(quiz)}>
-                            {quiz.published ? "Unpublish" : "Publish"}
-                          </Dropdown.Item>
-                          <Dropdown.Item eventKey="item2" onClick={() => {
-                            dispatch(setQuiz(quiz));
-                          }}>
-                            <Link to={`${location.pathname}/${quiz._id}/Details`}>
-                              Edit
-                            </Link>
-                          </Dropdown.Item>
-                          <Dropdown.Item eventKey="item3" onClick={() => handleDeleteQuiz(quiz._id)}>
-                            Delete
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
+                       </Dropdown.Toggle>
+
+
+                       <Dropdown.Menu>
+                         <Dropdown.Item eventKey="item1" className="dropdown-link" onClick={() => handlePublishQuiz(quiz)}>
+                           {quiz.published ? "Unpublish" : "Publish"}
+                         </Dropdown.Item>
+                         <Dropdown.Item eventKey="item2" onClick={() => {
+                           dispatch(setQuiz(quiz));
+                         }}>
+                           <Link to={`${location.pathname}/${quiz._id}/Details`} className="dropdown-link"> Edit
+                           </Link>
+                         </Dropdown.Item>
+                         <Dropdown.Item eventKey="item3" className="dropdown-link" onClick={() => handleDeleteQuiz(quiz._id)}>
+                           Delete
+                         </Dropdown.Item>
+                       </Dropdown.Menu>
+                     </Dropdown>
                     </button>
                   </span>
                 </li>
